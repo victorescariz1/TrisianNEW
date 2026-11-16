@@ -28,7 +28,7 @@ const states = plans.states as Record<string, string>;
             <tr><th scope="row">Microsoft 365 license</th>{plans.plans.map((p) => <td>{p.license.replace('Microsoft 365 ', '')}</td>)}</tr>
             <tr><th scope="row">Users</th>{plans.plans.map((p) => <td>{p.users.replace(' users', '')}</td>)}</tr>
             <tr><th scope="row">Support</th>{plans.plans.map((p) => <td>{p.support}</td>)}</tr>
-            <tr><th scope="row">Frameworks our controls support</th>{plans.plans.map((p) => <td>{p.frameworks.length ? `${p.frameworksNote ? 'Advanced, and ' : ''}${p.frameworks.join(', ')}` : p.frameworksNote}</td>)}</tr>
+            <tr><th scope="row">Frameworks our controls support</th>{plans.plans.map((p) => <td>{p.frameworks.length ? `${p.frameworksNote ? 'Those of Advanced, plus ' : ''}${p.frameworks.join(', ')}` : <><span class="mark" aria-hidden="true">·</span> {states.no}</>}</td>)}</tr>
             {plans.rows.map((row) => (
               <tr>
                 <th scope="row">{row.label}</th>
@@ -76,7 +76,7 @@ const states = plans.states as Record<string, string>;
       <ul class="qa">
         <li>
           <p class="t-question">{c.price.question}</p>
-          <div class="qa__answer"><p class="t-h2">{c.price.body}</p><p class="t-h3" style="font-weight:300">Hours, not adjectives.</p></div>
+          <div class="qa__answer"><p class="t-h2">{c.price.body}</p></div>
         </li>
         {c.questions.map((q) => (
           <li>

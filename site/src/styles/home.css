@@ -334,3 +334,5 @@ body[data-tone='night'] .site-nav .btn { background: #fff; color: var(--navy); }
 .sinceline { padding-block: var(--s-9); }
 .sinceline .t-h2 { max-width: 22em; }
 .sinceline .link { font-size: var(--t-lede); white-space: nowrap; }
+
+.built__lede { margin-block: var(--s-6) var(--s-8); color: var(--fg-2); }

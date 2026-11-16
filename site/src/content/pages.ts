@@ -14,7 +14,7 @@ export const safeWorkspace = {
     { name: 'Security', body: 'Every access verified, data encrypted at rest and in transit, and a published baseline kept free of drift.', byPlan: 'CIS-hardened images from Advanced. Dedicated host pools and Zero Trust architecture on Enterprise.', truth: ['BP §1.4', 'BP §2.4', 'BP §4.4', 'BP §5.1'] },
     { name: 'Monitoring', body: 'Automated platform monitoring, 24x7. Patching and scaling run on schedule.', byPlan: '', truth: ['BP §4.4'] },
     { name: 'Compliance controls', body: 'Controls that support the frameworks your plan covers. We own the technical foundation; your program and your auditor stay yours.', byPlan: '', truth: ['BP §5.1', 'BP §10.3'] },
-    { name: 'Support', body: 'One point of contact, one owner for every issue, a service desk from Level 1 to Level 3.', byPlan: 'A Named Technical Account Manager on Enterprise.', truth: ['BP §3.1', 'BP §3.3', 'BP §5.1'] },
+    { name: 'Support', body: 'One point of contact, one owner for every issue, a service desk from Level 1 to Level 3.', byPlan: 'A named Technical Account Manager from Trisian on Enterprise.', truth: ['BP §3.1', 'BP §3.3', 'BP §5.1'] },
   ],
   built: {
     lines: ['We build it'],
@@ -55,7 +55,7 @@ export const safeWorkspace = {
       { task: 'Vendor coordination', before: 'Several providers, separate contracts', withIt: 'One accountability chain for the vendors inside the managed scope' },
       { task: 'Security monitoring', before: 'Reactive, found when users complain', withIt: '24x7 automated platform monitoring' },
       { task: 'Compliance evidence', before: 'Collected by hand before each audit', withIt: 'Continuous collection with the compliance automation platform, as an add-on' },
-      { task: 'Desktop standardization', before: 'Each machine different', withIt: 'One golden image, centrally managed' },
+      { task: 'Desktop standardization', before: 'Each machine different', withIt: 'One standard image, centrally managed' },
     ],
   },
 };
@@ -93,7 +93,7 @@ export const plansPage = {
     items: [
       { name: 'Add-ons', body: 'Long-term log archival, Microsoft 365 data protection and recovery, a compliance automation platform, and others by plan.', truth: ['BP §6.1'] },
       { name: 'Projects', body: 'How your workspace gets built, and how it changes afterwards. Each one is scoped, quoted and finished.', truth: ['BP §6.2'] },
-      { name: 'Retainers', body: 'Incident response on any plan. Out-of-hours cover for Core.', truth: ['BP §6.3'] },
+      { name: 'Retainers', body: 'Incident response on any plan. After-hours coverage for Core.', truth: ['BP §6.3'] },
     ],
   },
   price: { question: 'Where’s the price?', body: 'Each plan has one price per user, per month. We quote it in writing with your assessment.', truth: ['BP §5.1'] },
@@ -173,7 +173,7 @@ export const doorPages = [
     facts: [
       { body: 'Safe Workspace runs from 50 users. Core runs to 300; past that, you move to Advanced.', truth: ['BP §5.1'] },
       { body: 'Capacity follows demand, as your people sign in and out.', truth: ['BP §4.6'] },
-      { body: 'The approach is the same on every plan: one golden image, one published baseline, kept free of drift.', truth: ['BP §4.4'] },
+      { body: 'The approach is the same on every plan: one standard image, one published baseline, kept free of drift.', truth: ['BP §4.4'] },
     ],
     start: 'Most growing businesses start on Core and move to Advanced when a client asks for a framework. The assessment recommends the plan.',
     truth: ['BP §5.1', 'BP §6.4'],
@@ -227,7 +227,7 @@ export const startPage = {
   truth: ['BP §6.4'],
   paths: [
     { id: 'assessment', name: 'Take the assessment', body: 'Eight questions, a few minutes. You get the result on the spot.', action: 'Start the eight questions', truth: ['BP §6.4'] },
-    { id: 'talk', name: 'Go straight to a conversation', body: 'Prefer to talk? Choose a time. We’ll bring the questions.', action: 'Choose a time', truth: ['BP §6.4'] },
+    { id: 'talk', name: 'Go straight to a conversation', body: 'Prefer to talk? Choose a time. We’ll bring the questions.', bodyEmail: 'Prefer to talk? Email us, and we’ll set a time. We’ll bring the questions.', action: 'Choose a time', actionEmail: 'Email us', truth: ['BP §6.4'] },
   ],
   options: ['Yes, and I can show it', 'Probably', 'Not yet'],
   questions: [
@@ -246,7 +246,8 @@ export const startPage = {
     action: 'Review it with us',
   },
   next: [
-    { name: 'Your assessment', body: 'Where you stand, and the plan that fits.', truth: ['BP §6.4'] },
+    { name: 'Your assessment', body: 'Where you stand today.', truth: ['BP §6.4'] },
+    { name: 'Your conversation', body: 'What you answer to, and the plan that fits.', truth: ['BP §6.4'] },
     { name: 'Your proposal', body: 'A strategic assessment maps your environment in depth, names the gaps to close and comes back as a proposal you can defend.', truth: ['BP §6.4'] },
     { name: 'Your onboarding', body: 'The scope goes in writing, and we build.', truth: ['BP §4.2', 'BP §6.2'] },
   ],

@@ -59,7 +59,7 @@ import scopeData from '../data/scope.json';
                   <div class="where__box where__box--dc" aria-hidden="true"><p>Your datacenter</p><p class="t-small">What you already run</p></div>
                 </div>
               )}
-              {i === 2 && <p><a class="link" href={url('trust')}>More on the Trust page <span class="arrow" aria-hidden="true">→</span></a></p>}
+              {item.question.startsWith('Whose tenant') && <p><a class="link" href={url('trust')}>More on the Trust page <span class="arrow" aria-hidden="true">→</span></a></p>}
             </div>
           </li>
         ))}
@@ -70,7 +70,7 @@ import scopeData from '../data/scope.json';
   <section class="scope band" id="scope" data-ground="morning" aria-labelledby="scope-h">
     <div class="wrap">
       <div class="grid scope__head">
-        <p class="t-question">{scope.question}</p>
+        <p class="t-question">Who takes care of what?</p>
         <h2 class="t-h1" id="scope-h">Inside the scope, <span class="ink">we own the outcome</span>.</h2>
       </div>
       <table class="lineof">
@@ -100,7 +100,7 @@ import scopeData from '../data/scope.json';
           ))}
         </ul>
         <div class="explorer__field">
-          <div class="zone zone--inside"><p class="t-label">Inside the Managed Scope</p><p class="zone__terms">an owner · a service level · a resolution path</p><ul data-placed="inside"></ul></div>
+          <div class="zone zone--inside"><p class="t-label">Inside the Managed Scope</p><p class="zone__terms">an owner · a path to resolution</p><ul data-placed="inside"></ul></div>
           <div class="zone zone--outside"><p class="t-label">Outside, defined in writing</p><ul data-placed="outside"></ul></div>
         </div>
         <p class="explorer__answer" aria-live="polite" data-answer><span class="t-small">Choose a situation to see where it lands.</span></p>

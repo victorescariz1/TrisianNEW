@@ -87,15 +87,11 @@ import { hero, layers, built, projects, scope, tuesday, proof, who, since, start
         <span class="t-statement" data-statement>{built.statement}</span>
         <span class="t-h1 built__rest">{built.rest} <span class="ink">{built.ink}</span>.</span>
       </h2>
-      <div class="grid built__intro">
-        <p class="t-question">{built.question}</p>
-        <p class="t-lede">{built.intro}</p>
-      </div>
+      <p class="t-lede built__lede">{built.intro}</p>
 
       <PlanLadder />
       <div class="actions plan__actions">
         <a class="btn btn--quiet" href={url('plans') + '#compare'} data-track="Plans compared">Compare all plans <span class="arrow" aria-hidden="true">→</span></a>
-        <p class="t-small">{built.notes[0]}</p>
       </div>
 
       <div class="grid built__where">
@@ -137,7 +133,7 @@ import { hero, layers, built, projects, scope, tuesday, proof, who, since, start
       </ul>
 
       <div class="grid scope__body">
-        <p class="t-h2 scope__principle"><span class="ink">{scope.principle}</span></p>
+        <p class="t-h2 scope__principle"><span class="ink">{scope.closing}</span></p>
         <div>
           <p class="t-lede">{scope.written}</p>
           <p class="scope__evidence">{scope.evidence.body}</p>
@@ -211,7 +207,7 @@ import { hero, layers, built, projects, scope, tuesday, proof, who, since, start
           </div>
         </article>
       ))}
-      <p class="t-small measure proof__qualifier">{proof.qualifier} <a class="link" href={url('trust')}>What we hold, and what we support <span class="arrow" aria-hidden="true">→</span></a></p>
+      <p class="t-small measure proof__qualifier">{proof.qualifierHome} <a class="link" href={url('trust')}>What we hold, and what we support <span class="arrow" aria-hidden="true">→</span></a></p>
     </div>
   </section>
 

@@ -23,8 +23,8 @@ const mail = 'mailto:contact@trisian.com?subject=A%20first%20conversation%20abou
         {c.paths.map((path) => (
           <li>
             <h3 class="t-h2">{path.name}</h3>
-            <p class="t-lede">{path.body}</p>
-            <p><a class="btn" href={`#${path.id}`} data-track={path.id === 'assessment' ? 'Assessment started' : 'Conversation chosen'}>{path.action} <span class="arrow" aria-hidden="true">↓</span></a></p>
+            <p class="t-lede">{path.id === 'talk' && !bookingUrl ? path.bodyEmail : path.body}</p>
+            <p><a class="btn" href={`#${path.id}`} data-track={path.id === 'assessment' ? 'Assessment started' : 'Conversation chosen'}>{path.id === 'talk' && !bookingUrl ? path.actionEmail : path.action} <span class="arrow" aria-hidden="true">↓</span></a></p>
           </li>
         ))}
       </ul>

@@ -6,7 +6,7 @@ export const hero = {
   eyebrow: 'Safe Workspace · a managed cloud desktop service',
   lines: ['Your workspace,', 'answered in'],
   ink: 'advance',
-  lede: 'We build your organization’s workspace in your own cloud and run it for you: desktop, Microsoft 365, security, monitoring, compliance controls and support. One accountable partner. One price per user. A scope agreed in writing.',
+  lede: 'We build your organization’s workspace in your own cloud, and run it for you. One accountable partner, one price per user, one scope in writing.',
   close: 'Ready for your next client, hire or audit.',
   facts: ['ISO/IEC 27001:2022 certified', 'Built in your own cloud', 'Passthrough, no markup', 'From 50 users'],
   signin: ['Good morning.', 'Signed in.', 'Your desktop is ready.', 'Your files and settings are where you left them.'],
@@ -27,7 +27,7 @@ export const layers = {
     { id: 'desktop', group: 'How the day runs', title: 'The desktop', body: 'A Windows desktop in the cloud, delivered on Azure Virtual Desktop. Every desktop is built to the same standard.', detail: 'Your files and settings follow you in a managed profile.', truth: ['BP §4.3', 'BP §4.6', '01 §20c'] },
     { id: 'm365', group: 'How the day runs', title: 'Microsoft 365', body: 'Mail, files and meetings, on the license that comes with your plan: Business Premium, E3 or E5. Passthrough, no markup.', detail: 'One less agreement to manage.', truth: ['BP §5.1', 'BP §8.5'] },
     { id: 'support', group: 'How the day runs', title: 'Support', body: 'One point of contact. One owner for every issue, from the first call to the fix.', detail: 'People, not a queue.', truth: ['BP §3.1', 'BP §3.3'] },
-    { id: 'compliance', group: 'What you can prove', title: 'Compliance controls', body: 'Technical controls that support the frameworks your plan covers, and a clear line between what we own and what stays with you.', detail: 'Six frameworks, by plan.', truth: ['BP §5.1', 'BP §10.3'] },
+    { id: 'compliance', group: 'What you can prove', title: 'Compliance controls', body: 'Technical controls that support the frameworks your plan covers, configured and kept in place.', detail: 'Six frameworks, by plan.', truth: ['BP §5.1', 'BP §10.3'] },
   ],
 };
 
@@ -36,7 +36,7 @@ export const built = {
   rest: 'Built around',
   ink: 'you',
   question: 'Is it the same for everyone?',
-  intro: 'Every workspace starts from the same curated foundation, and no two finish the same. Choose a plan to see what it adds.',
+  intro: 'Three plans. Each one builds on the one before.',
   truth: ['01 §20', 'BP §1.5'],
   where: {
     question: 'Where does it run?',
@@ -57,14 +57,15 @@ export const scope = {
   evidence: { body: 'Need the evidence for your audit? Continuous evidence collection is available on every plan.', truth: ['BP §4.7', 'BP §6.1'] },
   principle: 'We support what we build.',
   care: [
-    { name: 'We build it', body: 'Your workspace, and everything our projects put in place.', truth: ['BP §4.2', 'BP §6.2'] },
-    { name: 'We keep it secure', body: 'Access, encryption and the baseline, applied and kept free of drift.', truth: ['BP §4.4'] },
-    { name: 'We keep it current', body: 'Patching and scaling, automated and on schedule.', truth: ['BP §4.7'] },
-    { name: 'We watch it', body: 'Automated platform monitoring, 24x7.', truth: ['BP §4.4'] },
-    { name: 'We keep the controls in place', body: 'The technical controls your framework asks for.', truth: ['BP §10.3'] },
-    { name: 'We answer for it', body: 'One point of contact and one owner for every issue, including the vendors involved.', truth: ['BP §4.2', 'BP §4.4'] },
+    { name: 'Building it', body: 'Your workspace, and everything our projects put in place.', truth: ['BP §4.2', 'BP §6.2'] },
+    { name: 'Securing it', body: 'Access, encryption and the baseline, applied and kept free of drift.', truth: ['BP §4.4'] },
+    { name: 'Keeping it current', body: 'Patching and scaling, automated and on schedule.', truth: ['BP §4.7'] },
+    { name: 'Watching it', body: 'Automated platform monitoring, 24x7.', truth: ['BP §4.4'] },
+    { name: 'Keeping the controls in place', body: 'The technical controls your framework asks for.', truth: ['BP §10.3'] },
+    { name: 'Answering for it', body: 'One point of contact and one owner for every issue, including the vendors involved.', truth: ['BP §4.2', 'BP §4.4'] },
   ],
-  written: 'Your scope is agreed in writing before you sign. Nothing about it is a surprise later.',
+  closing: 'Clear from the start. Predictable from then on.',
+  written: 'What we take care of is set down with you before you sign, and it changes only when you approve it.',
   truth: ['BP §4.2', '01 §20.9', '01 §20.10'],
   line: [
     { area: 'Day to day', ours: 'The workspace we built, and everything our projects put in place', yours: 'Your business applications, your devices, your internet connection', truth: ['BP §4.2', 'BP §7.1'] },
@@ -94,7 +95,7 @@ export const proof = {
   ink: 'Proof.',
   intro: 'Sooner or later someone asks what you knew, and when: an auditor, a board, a client. Here is what is already answered.',
   answers: [
-    { id: 'owner', question: 'Who owns what?', answer: 'It’s in writing before you sign.', body: 'Every task has an owner: ours, yours or Microsoft’s. The scope does not move mid-contract without a formal change order.', check: 'Ask us for the scope.', truth: ['BP §4.2'] },
+    { id: 'owner', question: 'Who owns what?', answer: 'It’s in writing before you sign.', body: 'Every task in your workspace has a named owner, and the scope changes only through a formal change order.', check: 'Ask us for the scope.', truth: ['BP §4.2'] },
     { id: 'baseline', question: 'What’s protected?', answer: 'A published security baseline.', body: 'Applied to your whole environment and kept free of drift, at the level your plan sets.', check: 'Ask for the baseline of your plan.', truth: ['BP §4.4'] },
     { id: 'certified', question: 'Can you prove it?', answer: 'ISO/IEC 27001:2022, certified.', body: 'By an accredited certification body, with zero non-conformities in the internal audit and in the certification audit. The scope names Safe Workspace.', check: 'The certificate details are on the Trust Center.', truth: ['BP §10.1', 'BP §10.2'] },
   ],
@@ -108,6 +109,7 @@ export const proof = {
     { plan: 'Enterprise adds', frameworks: ['SOC 2', 'ISO/IEC 27001', 'HITRUST'] },
   ],
   supportTruth: ['BP §5.1', 'BP §10.2'],
+  qualifierHome: 'Our controls support your obligations under the frameworks of your plan. Certifications and attestation reports are issued only by your independent certification body, CPA firm or assessor.',
   qualifier: 'Our controls support your obligations under these frameworks. Certifications and attestation reports are issued only by your independent certification body, CPA firm or assessor.',
   qualifierTruth: ['BP §10.3', 'BP §10.4'],
 };
