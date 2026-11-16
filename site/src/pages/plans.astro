@@ -70,6 +70,21 @@ const states = plans.states as Record<string, string>;
     </div>
   </section>
 
+  <section class="band" id="projects" data-ground="noon" aria-labelledby="services-h">
+    <div class="wrap band__grid">
+      <div class="band__head">
+        <h2 class="t-h2" id="services-h">{c.services.heading}</h2>
+        <p class="t-lede">{c.services.lede}</p>
+      </div>
+      <div class="band__body">
+        <ul class="invoice">
+          {c.services.areas.map((area) => <li><strong>{area.name}</strong><span>{area.body}</span></li>)}
+        </ul>
+        <p class="t-small">{c.services.note}</p>
+      </div>
+    </div>
+  </section>
+
   <section class="band" data-ground="morning" aria-labelledby="questions-h">
     <div class="wrap">
       <h2 class="sr-only" id="questions-h">Questions</h2>

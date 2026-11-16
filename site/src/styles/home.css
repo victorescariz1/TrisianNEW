@@ -336,3 +336,5 @@ body[data-tone='night'] .site-nav .btn { background: #fff; color: var(--navy); }
 .sinceline .link { font-size: var(--t-lede); white-space: nowrap; }
 
 .built__lede { margin-block: var(--s-6) var(--s-8); color: var(--fg-2); }
+
+.projects__eyebrow { grid-column: 1 / -1; }

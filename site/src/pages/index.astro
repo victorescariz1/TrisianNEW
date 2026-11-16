@@ -108,6 +108,7 @@ import { hero, layers, built, projects, scope, tuesday, proof, who, since, start
   <section class="projects movement" id="projects" data-ground="noon" aria-labelledby="projects-h">
     <div class="wrap">
       <div class="grid projects__head">
+        <p class="t-label projects__eyebrow">{projects.eyebrow}</p>
         <h2 class="t-h1" id="projects-h">{projects.heading} <span class="ink">{projects.ink}</span>.</h2>
         <p class="t-lede">{projects.body}</p>
       </div>
@@ -116,7 +117,7 @@ import { hero, layers, built, projects, scope, tuesday, proof, who, since, start
           <li><span class="t-label">{String(i + 1).padStart(2, '0')}</span><h3 class="t-h3">{step.name}</h3><p>{step.body}</p></li>
         ))}
       </ol>
-      <p class="t-small measure">{projects.reach}</p>
+      <p class="t-small measure">{projects.reach} <a class="link" href={url('plans') + '#projects'}>{projects.link} <span class="arrow" aria-hidden="true">→</span></a></p>
     </div>
   </section>
 

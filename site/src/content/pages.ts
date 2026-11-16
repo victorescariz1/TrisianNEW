@@ -92,9 +92,22 @@ export const plansPage = {
     truth: ['BP §6.1', 'BP §6.2', 'BP §6.3'],
     items: [
       { name: 'Add-ons', body: 'Long-term log archival, Microsoft 365 data protection and recovery, a compliance automation platform, and others by plan.', truth: ['BP §6.1'] },
-      { name: 'Projects', body: 'How your workspace gets built, and how it changes afterwards. Each one is scoped, quoted and finished.', truth: ['BP §6.2'] },
       { name: 'Retainers', body: 'Incident response on any plan. After-hours coverage for Core.', truth: ['BP §6.3'] },
     ],
+  },
+  services: {
+    heading: 'Professional services',
+    lede: 'Projects that build your workspace and keep improving it. Each one starts from what you need: we define the scope, the timeline and the deliverables, and quote it separately, before work begins.',
+    truth: ['BP §3.2', 'BP §6.2'],
+    areas: [
+      { name: 'Migrations', body: 'Moving onto the platform from any desktop environment or tenant, including acquisitions and multi-site rollouts.', truth: ['BP §6.2'] },
+      { name: 'Platform', body: 'Designing and building the workspace, the Azure environment and the Microsoft 365 tenant.', truth: ['BP §6.2'] },
+      { name: 'Security and identity', body: 'Building the defense layers: identity, privileged access, Zero Trust, threat detection, data loss prevention.', truth: ['BP §6.2'] },
+      { name: 'Compliance', body: 'Control gap analysis, technical remediation and compliance automation.', truth: ['BP §6.2'] },
+      { name: 'Continuity and infrastructure', body: 'Protecting against the unexpected: disaster recovery, backup, business continuity, network.', truth: ['BP §6.2'] },
+      { name: 'Sector work', body: 'Sector-specific projects for financial services and healthcare.', truth: ['BP §6.2'] },
+    ],
+    note: 'These are the areas where we work, not a fixed list of products.',
   },
   price: { question: 'Where’s the price?', body: 'Each plan has one price per user, per month. We quote it in writing with your assessment.', truth: ['BP §5.1'] },
   questions: [

@@ -157,15 +157,17 @@ export const start = {
 };
 
 export const projects = {
+  eyebrow: 'Projects · professional services',
   heading: 'Built as a project.',
-  ink: 'Changed the same way',
-  body: 'Building your workspace is a project: scoped, quoted in writing and finished. So is every change after it.',
+  ink: 'Always improving',
+  body: 'We work close to your team. That is how we see what your workspace needs next, and how you tell us where the business is going. Every idea, yours or ours, becomes a project: planned, quoted in writing and delivered.',
   steps: [
-    { name: 'Review', body: 'We review your environment with you, on a regular schedule.', truth: ['BP §6.2'] },
-    { name: 'Plan', body: 'Scope, timeline and price, in one document.', truth: ['BP §6.2'] },
-    { name: 'Approve', body: 'You sign before work begins.', truth: ['BP §6.2', 'BP §4.2'] },
-    { name: 'Deliver', body: 'We build it, then support it inside the Managed Scope.', truth: ['BP §6.2', 'BP §4.2'] },
+    { name: 'Stay close', body: 'We work alongside your team and keep looking for what would serve you better.', truth: ['BP §6.2'] },
+    { name: 'Propose', body: 'An idea, yours or ours, becomes a plan: scope, timeline and price.', truth: ['BP §6.2'] },
+    { name: 'Approve', body: 'You see all of it, and sign before work begins.', truth: ['BP §6.2', 'BP §4.2'] },
+    { name: 'Deliver', body: 'We implement it, then support it inside the Managed Scope.', truth: ['BP §6.2', 'BP §4.2'] },
   ],
-  reach: 'Projects reach as far as the workspace does: moving you onto the platform, building it and its security, closing compliance gaps, and planning for the unexpected.',
+  reach: 'From moving you onto the platform to closing a compliance gap.',
+  link: 'See what projects cover',
   truth: ['BP §3.2', 'BP §6.2'],
 };
