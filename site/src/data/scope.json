@@ -1,9 +1,9 @@
 {
   "_source": "References §4.2, §4.4, §4.6, §4.7, §7.1, §2.4. Examples only; a client's own scope is set in writing at onboarding.",
   "situations": [
-    { "id": "desktop", "label": "A desktop won’t load.", "side": "inside", "verdict": "Inside", "answer": "The platform is ours: the session hosts, the golden image, the host pool.", "truth": ["BP §4.4"] },
+    { "id": "desktop", "label": "A desktop won’t load.", "side": "inside", "verdict": "Inside", "answer": "The platform is ours: the session hosts, the standard image, the host pool.", "truth": ["BP §4.4"] },
     { "id": "patch", "label": "It’s patch day.", "side": "inside", "verdict": "Inside · automated", "answer": "Operating system and Microsoft 365 app patching run on schedule. Nobody files a ticket.", "truth": ["BP §4.4", "BP §4.7"] },
-    { "id": "monday", "label": "Monday, 9:00. Everyone signs in at once.", "side": "inside", "verdict": "Inside · automated", "answer": "Session hosts are created as demand rises.", "truth": ["BP §4.4", "BP §4.6"] },
+    { "id": "monday", "label": "Monday, 9:00. Everyone signs in at once.", "side": "inside", "verdict": "Inside · automated", "answer": "Capacity follows demand, as your people sign in.", "truth": ["BP §4.4", "BP §4.6"] },
     { "id": "microsoft", "label": "The fix needs Microsoft.", "side": "inside", "verdict": "Inside", "answer": "We own the escalation and the communication.", "truth": ["BP §4.2"] },
     { "id": "accounting", "label": "The accounting system’s report is wrong.", "side": "outside", "verdict": "Outside · in writing", "answer": "Application-level support stays with the software’s vendor. We run the infrastructure and operating system it needs.", "truth": ["BP §7.1"] },
     { "id": "internet", "label": "The office internet is down.", "side": "outside", "verdict": "Outside · in writing", "answer": "That’s your internet provider. You knew that at onboarding, not today.", "truth": ["BP §4.2", "BP §7.1"] },

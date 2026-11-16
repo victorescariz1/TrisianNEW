@@ -118,7 +118,7 @@ $$<HTMLElement>('[data-plan-root]').forEach((planRoot) => {
 
 /* ── Whose problem is it? ──────────────────────────────────────────────── */
 $$<HTMLElement>('[data-explorer]').forEach((ex) => {
-  const answer = $<HTMLElement>('[data-answer]', ex);
+  const answer = $<HTMLElement>('.explorer__answer', ex);
   $$<HTMLButtonElement>('.chip', ex).forEach((chip) => {
     chip.addEventListener('click', () => {
       const { side = 'inside', verdict = '', answer: text = '' } = chip.dataset;

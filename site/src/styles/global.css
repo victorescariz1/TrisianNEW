@@ -128,7 +128,7 @@ strong, b { font-weight: 600; }
 .site-footer .grid { row-gap: var(--s-7); }
 .site-footer .statement { grid-column: 1 / span 5; }
 .site-footer nav { grid-column: span 2; }
-.site-footer nav:first-of-type { grid-column: 8 / span 2; }
+.site-footer nav:first-of-type { grid-column: 7 / span 2; }
 .site-footer h2 { font-size: var(--t-label); font-weight: 500; color: var(--ink-3); margin-bottom: 14px; }
 .site-footer li + li { margin-top: 4px; }
 .site-footer a { text-decoration: none; }

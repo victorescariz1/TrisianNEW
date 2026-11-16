@@ -2,7 +2,7 @@
 // Same rule as home.ts: a block that states a fact carries `truth`; framing carries [].
 
 export const safeWorkspace = {
-  title: 'Safe Workspace · Managed cloud desktop on Azure Virtual Desktop · Trisian',
+  title: 'Safe Workspace on Azure Virtual Desktop · Trisian',
   description: 'Safe Workspace is a managed cloud desktop service. We build it for your organization, in your own cloud, and then run it.',
   lines: ['Built for you.'],
   ink: 'Run for you',
@@ -105,7 +105,7 @@ export const plansPage = {
 };
 
 export const whoPage = {
-  title: 'Who it’s for · Financial services, healthcare, legal and growing businesses · Trisian',
+  title: 'Who it’s for · Regulated and growing organizations · Trisian',
   description: 'Safe Workspace is built for organizations that have to defend their decisions, with 50 people or more.',
   truth: ['BP §1.4', 'BP §5.1'],
   isThisYou: [
