@@ -3,10 +3,12 @@ import '../styles/global.css';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import { asset, url } from '../lib/url';
+import { analytics } from '../lib/analytics';
 
 interface Props { title: string; description: string; current?: string; }
 const { title, description, current = '' } = Astro.props;
 const canonical = new URL(Astro.url.pathname, Astro.site).href;
+const shareImage = new URL(asset('og.png'), Astro.site).href;
 const weights = [['Light', 300], ['Regular', 400], ['Medium', 500], ['Semibold', 600]] as const;
 const fontFaces = weights.map(([name, w]) =>
   `@font-face{font-family:'Graphik';font-weight:${w};font-style:normal;font-display:swap;src:url('${asset(`fonts/Graphik-${name}.woff2`)}') format('woff2')}`).join('');
@@ -27,9 +29,16 @@ const fontFaces = weights.map(([name, w]) =>
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
     <meta property="og:url" content={canonical} />
+    <meta property="og:site_name" content="Trisian" />
+    <meta property="og:image" content={shareImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="sitemap" href={asset('sitemap.xml')} />
     <link rel="preload" href={asset('fonts/Graphik-Light.woff2')} as="font" type="font/woff2" crossorigin />
     <link rel="preload" href={asset('fonts/Graphik-Semibold.woff2')} as="font" type="font/woff2" crossorigin />
     <style set:html={fontFaces}></style>
+    {analytics.domain && <script is:inline defer data-domain={analytics.domain} src={analytics.script}></script>}
     <script is:inline>
       // Arm entrances only when script runs; a timer in motion.ts releases anything that has not started.
       document.documentElement.classList.add('js');

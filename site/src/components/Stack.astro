@@ -7,7 +7,7 @@ const { compact = false, class: cls = '' } = Astro.props;
 const parts = ['desktop', 'm365', 'security', 'monitoring', 'compliance', 'support'];
 const names = ['The desktop', 'Microsoft 365', 'Security', 'Monitoring', 'Compliance controls', 'Support'];
 ---
-<div class:list={['stack', 'ambient', { 'stack--compact': compact }, cls]} data-stack data-active="0" role="img" aria-label="Illustration: the six parts of Safe Workspace as six sheets, one behind another — the desktop, Microsoft 365, security, monitoring, compliance controls and support.">
+<div class:list={['stack', 'ambient', { 'stack--compact': compact }, cls]} data-stack data-active="0" role="img" aria-label="Illustration: the six parts of Safe Workspace as six sheets, one behind another: the desktop, Microsoft 365, security, monitoring, compliance controls and support.">
   {parts.map((part, i) => (
     <div class="sheet" data-part={part} style={`--i:${i}`} aria-hidden="true">
       <span class="sheet__name">{names[i]}</span>

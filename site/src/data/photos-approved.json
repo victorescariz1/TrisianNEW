@@ -64,6 +64,10 @@
     "p18-desk-2010s.jpg": {
       "sha256": "d05f3f7a4b348f178ebe5a5d5c50a21d5f137fc9fb3a1953b79eb1ba0eeb9a7d",
       "on": "2026-11-15"
+    },
+    "p19-morning-team.jpg": {
+      "sha256": "2816adad4b14dc4809dd9a5958a03354d115945a384f418db30ffec42253eb50",
+      "on": "2026-11-16"
     }
   }
 }

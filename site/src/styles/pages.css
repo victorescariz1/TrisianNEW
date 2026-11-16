@@ -127,3 +127,35 @@
 /* ── Not found ────────────────────────────────────────────────────────── */
 .notfound { min-height: 78vh; display: grid; align-content: center; gap: var(--s-6); padding-block: clamp(140px, 16vw, 220px) var(--s-9); }
 .notfound ul { display: flex; flex-wrap: wrap; gap: 12px 32px; font-size: var(--t-h3); }
+
+/* ── The full plan table, in plain view under the ladder ──────────────── */
+.matrix__h { margin-top: var(--s-9); scroll-margin-top: 96px; }
+.matrix__h + .compare { margin-top: var(--s-5); }
+
+/* ── Start: two ways in, and the eight questions ──────────────────────── */
+.paths { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: var(--gutter); row-gap: var(--s-6); }
+.paths > li { display: grid; gap: var(--s-4); align-content: start; padding-top: var(--s-5); border-top: 1.5px solid var(--fg); }
+.paths p { color: var(--fg-2); }
+@media (max-width: 800px) { .paths { grid-template-columns: 1fr; } }
+.quiz { display: grid; gap: 0; counter-reset: q; }
+.quiz fieldset { border: 0; margin: 0; padding: var(--s-6) 0; border-top: 1px solid var(--rule); display: grid; grid-template-columns: minmax(0, 1fr) auto; column-gap: var(--gutter); row-gap: var(--s-4); align-items: center; }
+.quiz fieldset:first-of-type { border-top: 1.5px solid var(--fg); }
+.quiz legend { float: left; padding: 0; font-size: var(--t-h3); letter-spacing: -.02em; line-height: 1.25; }
+.quiz legend::before { counter-increment: q; content: counter(q, decimal-leading-zero); display: block; margin-bottom: 6px; font-size: var(--t-label); font-weight: 500; color: var(--fg-3); }
+.quiz .switch { margin: 0; }
+.quiz__foot { display: flex; flex-wrap: wrap; align-items: center; gap: 16px 28px; padding-top: var(--s-6); border-top: 1.5px solid var(--fg); }
+.quiz__result { display: grid; gap: var(--s-5); padding: var(--s-7); border-radius: var(--r-window); background: var(--ground-sunk); }
+.quiz__result[hidden] { display: none; }
+.quiz__score { font-size: var(--t-h1); font-weight: 300; letter-spacing: -.035em; line-height: 1.05; }
+.quiz__score b { font-weight: 600; color: var(--accent); }
+.quiz__pillars { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); column-gap: var(--gutter); row-gap: var(--s-4); }
+.quiz__pillars li { padding-top: var(--s-4); border-top: 1px solid var(--rule); display: grid; gap: 4px; }
+@media (max-width: 800px) { .quiz fieldset { grid-template-columns: 1fr; } .quiz__pillars { grid-template-columns: 1fr; } }
+.booking { display: grid; gap: var(--s-5); padding: var(--s-7); border-radius: var(--r-window); box-shadow: inset 0 0 0 1.5px var(--rule); }
+
+/* ── Long-form legal text ─────────────────────────────────────────────── */
+.legal-text { gap: var(--s-7); max-width: 44em; }
+.legal-text section { display: grid; gap: var(--s-3); padding-top: var(--s-5); border-top: 1px solid var(--rule); }
+.legal-text p, .legal-text dd { color: var(--fg-2); }
+.legal-text dl { display: grid; gap: var(--s-4); }
+.legal-text dt { font-weight: 500; }

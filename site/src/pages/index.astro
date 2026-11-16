@@ -3,26 +3,16 @@ import Base from '../layouts/Base.astro';
 import Invoice from '../components/Invoice.astro';
 import Photo from '../components/Photo.astro';
 import ProductWindow from '../components/ProductWindow.astro';
-import { eraSlot, erasReady, type SlotId } from '../lib/photos';
+import { type SlotId } from '../lib/photos';
 import Stack from '../components/Stack.astro';
+import PlanLadder from '../components/PlanLadder.astro';
 import '../styles/home.css';
 import { url } from '../lib/url';
-import { hero, layers, built, scope, tuesday, proof, who, since, start } from '../content/home';
-import plans from '../data/plans.json';
-import scopeData from '../data/scope.json';
+import { hero, layers, built, projects, scope, tuesday, proof, who, since, start } from '../content/home';
 
-// "Twenty-eight years of running IT. Sixteen of them in the cloud." — computed, never typed (BP §1.3).
-const ones = ['zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten', 'eleven', 'twelve', 'thirteen', 'fourteen', 'fifteen', 'sixteen', 'seventeen', 'eighteen', 'nineteen'];
-const tens = ['', '', 'twenty', 'thirty', 'forty', 'fifty', 'sixty', 'seventy', 'eighty', 'ninety'];
-const words = (n: number) => (n < 20 ? ones[n] : tens[Math.floor(n / 10)] + (n % 10 ? '-' + ones[n % 10] : ''));
-const cap = (s: string) => s.charAt(0).toUpperCase() + s.slice(1);
-const thisYear = new Date().getFullYear();
-const yearsInBusiness = cap(words(thisYear - 1998));
-const yearsInCloud = cap(words(thisYear - 2010));
-const stateMark: Record<string, string> = { in: '●', addon: '○', project: '◇', no: '—' };
 ---
 <Base
-  title="Trisian — Safe Workspace, the managed cloud desktop service"
+  title="Trisian · Safe Workspace, a managed cloud desktop service on Azure Virtual Desktop"
   description="Trisian builds and runs Safe Workspace, a managed cloud desktop service: the desktop, Microsoft 365, security, monitoring, compliance controls and support, in your own cloud."
 >
   <!-- 0 · Hero ─────────────────────────────────────────────────────────── -->
@@ -40,8 +30,9 @@ const stateMark: Record<string, string> = { in: '●', addon: '○', project: '�
       </div>
       <div class="hero__body">
         <p class="t-lede measure">{hero.lede}</p>
+        <p class="t-h3 hero__close">{hero.close}</p>
         <div class="actions">
-          <a class="btn" href={url('start')}>Start with an assessment <span class="arrow" aria-hidden="true">→</span></a>
+          <a class="btn" href={url('start')}>Request your assessment <span class="arrow" aria-hidden="true">→</span></a>
           <a class="link link--down" href="#window">See how it fits together <span class="arrow" aria-hidden="true">↓</span></a>
         </div>
       </div>
@@ -66,6 +57,7 @@ const stateMark: Record<string, string> = { in: '●', addon: '○', project: '�
         <ol class="window__steps" data-steps>
           {layers.items.map((item, i) => (
             <li class="step" data-step={i}>
+              {(i === 0 || layers.items[i - 1].group !== item.group) && <p class="t-label step__group">{item.group}</p>}
               <h3 class="t-h2">{item.title}</h3>
               <p class="t-lede">{item.body}</p>
               <p class="t-small">{item.detail}</p>
@@ -100,56 +92,10 @@ const stateMark: Record<string, string> = { in: '●', addon: '○', project: '�
         <p class="t-lede">{built.intro}</p>
       </div>
 
-      <div class="built__stage" data-plan-root data-plan="core">
-        <div class="callout callout--foundation" data-enter="rise">
-          <h3 class="t-h3">{built.steps[0].title}</h3>
-          <p>{built.steps[0].body}</p>
-          <fieldset class="switch">
-            <legend class="t-label">Choose a plan to see its level</legend>
-            {plans.plans.map((p, i) => (
-              <label><input type="radio" name="plan" value={p.id} checked={i === 0} /><span>{p.name}</span></label>
-            ))}
-          </fieldset>
-        </div>
-        <div class="callout callout--yours" data-enter="rise" style="--enter-delay:90ms">
-          <h3 class="t-h3">{built.steps[1].title}</h3>
-          <p>{built.steps[1].body}</p>
-        </div>
-        <div class="built__figure"><Stack compact /></div>
-        <div class="callout callout--shaped" data-enter="rise" style="--enter-delay:180ms">
-          <h3 class="t-h3">{built.steps[2].title}</h3>
-          <p>{built.steps[2].body}</p>
-        </div>
-        <div class="callout callout--supported" data-enter="rise" style="--enter-delay:270ms">
-          <h3 class="t-h3">{built.steps[3].title}</h3>
-          <p>{built.steps[3].body}</p>
-        </div>
-
-        <div class="plan" aria-live="polite">
-          {plans.plans.map((p) => (
-            <div class="plan__facts" data-plan-panel={p.id}>
-              <p class="t-h3">{p.name}. <span class="plan__line">{p.line}</span></p>
-              <p class="t-small">{p.license} · {p.users} · {p.support}</p>
-              <p class="t-small">{p.frameworks.length ? <>Controls that support {p.frameworks.join(', ')}{p.frameworksNote ? ` (${p.frameworksNote.toLowerCase()})` : ''}.</> : <>{p.frameworksNote}.</>}</p>
-            </div>
-          ))}
-          <table class="plan__table">
-            <caption class="sr-only">What changes with the plan</caption>
-            <thead><tr><th scope="col">What changes with the plan</th>{plans.plans.map((p) => <th scope="col" data-col={p.id}>{p.name}</th>)}</tr></thead>
-            <tbody>
-              {plans.rows.map((row) => (
-                <tr>
-                  <th scope="row">{row.label}</th>
-                  {plans.plans.map((p) => {
-                    const state = (row as Record<string, string>)[p.id];
-                    return <td data-col={p.id} data-state={state}><span class="mark" aria-hidden="true">{stateMark[state]}</span> {(plans.states as Record<string, string>)[state]}</td>;
-                  })}
-                </tr>
-              ))}
-            </tbody>
-          </table>
-          <p class="t-small plan__notes">{built.notes.join(' ')} <a class="link" href={url('plans')}>Compare every line <span class="arrow" aria-hidden="true">→</span></a></p>
-        </div>
+      <PlanLadder />
+      <div class="actions plan__actions">
+        <a class="btn btn--quiet" href={url('plans') + '#compare'} data-track="Plans compared">Compare all plans <span class="arrow" aria-hidden="true">→</span></a>
+        <p class="t-small">{built.notes[0]}</p>
       </div>
 
       <div class="grid built__where">
@@ -162,60 +108,41 @@ const stateMark: Record<string, string> = { in: '●', addon: '○', project: '�
     </div>
   </section>
 
+  <!-- 2b · Projects ────────────────────────────────────────────────────── -->
+  <section class="projects movement" id="projects" data-ground="noon" aria-labelledby="projects-h">
+    <div class="wrap">
+      <div class="grid projects__head">
+        <h2 class="t-h1" id="projects-h">{projects.heading} <span class="ink">{projects.ink}</span>.</h2>
+        <p class="t-lede">{projects.body}</p>
+      </div>
+      <ol class="projects__steps" data-enter="rise">
+        {projects.steps.map((step, i) => (
+          <li><span class="t-label">{String(i + 1).padStart(2, '0')}</span><h3 class="t-h3">{step.name}</h3><p>{step.body}</p></li>
+        ))}
+      </ol>
+      <p class="t-small measure">{projects.reach}</p>
+    </div>
+  </section>
+
   <!-- 3 · Inside the scope ─────────────────────────────────────────────── -->
   <section class="scope movement" id="scope" data-ground="morning" aria-labelledby="scope-h">
     <div class="wrap">
       <div class="grid scope__head">
         <p class="t-question">{scope.question}</p>
-        <h2 class="t-h1" id="scope-h">{scope.heading.join(' ')} <span class="ink">{scope.ink}</span>. <span class="scope__after">{scope.after}</span></h2>
+        <h2 class="t-h1" id="scope-h">{scope.heading.join(' ')} <span class="ink">{scope.ink}</span>.</h2>
       </div>
 
-      <table class="lineof" data-enter="draw">
-        <caption class="sr-only">The line of responsibility: what is ours and what is yours</caption>
-        <thead><tr><td></td><th scope="col">Ours</th><th scope="col">Yours</th></tr></thead>
-        <tbody>
-          {scope.line.map((row) => (
-            <tr><th scope="row" class="t-label">{row.area}</th><td class="t-h3 lineof__ours">{row.ours}</td><td class="t-h3 lineof__yours">{row.yours}</td></tr>
-          ))}
-        </tbody>
-      </table>
+      <ul class="care" data-enter="rise">
+        {scope.care.map((item) => <li><h3 class="t-h3">{item.name}</h3><p>{item.body}</p></li>)}
+      </ul>
 
       <div class="grid scope__body">
         <p class="t-h2 scope__principle"><span class="ink">{scope.principle}</span></p>
         <div>
-          <p class="t-lede">{scope.body}</p>
-          <ul class="commitments">
-            {scope.commitments.map((c) => <li><strong>{c.lead}</strong> {c.body}</li>)}
-          </ul>
+          <p class="t-lede">{scope.written}</p>
+          <p class="scope__evidence">{scope.evidence.body}</p>
+          <p><a class="link" href={url('safe-workspace#scope')}>See how the scope works <span class="arrow" aria-hidden="true">→</span></a></p>
         </div>
-      </div>
-
-      <div class="explorer" data-explorer>
-        <p class="t-h3">{scope.explorerPrompt}</p>
-        <ul class="chips">
-          {scopeData.situations.map((s) => (
-            <li><button type="button" class="chip" data-situation={s.id} data-side={s.side} data-verdict={s.verdict} data-answer={s.answer} aria-pressed="false">{s.label}</button></li>
-          ))}
-        </ul>
-        <div class="explorer__field">
-          <div class="zone zone--inside" data-zone="inside">
-            <p class="t-label">Inside the Managed Scope</p>
-            <p class="zone__terms">an owner · a service level · a resolution path</p>
-            <ul data-placed="inside"></ul>
-          </div>
-          <div class="zone zone--outside" data-zone="outside">
-            <p class="t-label">Outside, defined in writing</p>
-            <ul data-placed="outside"></ul>
-          </div>
-        </div>
-        <p class="explorer__answer" aria-live="polite" data-answer><span class="t-small">Choose a situation to see where it lands.</span></p>
-        <!-- Still form: complete without script -->
-        <noscript>
-          <dl class="explorer__list">
-            {scopeData.situations.map((s) => <><dt>{s.label} <em>{s.verdict}</em></dt><dd>{s.answer}</dd></>)}
-          </dl>
-        </noscript>
-        <p class="t-small">{scope.qualifier} <a class="link" href={url('safe-workspace#scope')}>More about the scope <span class="arrow" aria-hidden="true">→</span></a></p>
       </div>
     </div>
   </section>
@@ -235,7 +162,8 @@ const stateMark: Record<string, string> = { in: '●', addon: '○', project: '�
             {beat.question && <p class="t-question">{beat.question}</p>}
             <p class="t-h2 beat__answer">{beat.answer}</p>
             {beat.body && <p class="t-lede measure">{beat.body}</p>}
-            <div class="hosts ambient" style={`--n:${beat.hosts}`} role="img" aria-label="Illustration: session hosts in use at this time of day">
+            <p class="t-label hosts__label">People signed in</p>
+            <div class="hosts ambient" style={`--n:${beat.hosts}`} role="img" aria-label="Illustration: how many people are signed in at this time of day">
               {Array.from({ length: 8 }).map((_, h) => <i class={h < beat.hosts ? 'is-on' : ''}></i>)}
               <span class="hosts__pulse"></span>
             </div>
@@ -254,6 +182,17 @@ const stateMark: Record<string, string> = { in: '●', addon: '○', project: '�
       <h2 class="t-statement proof__statement" id="proof-h">{proof.statement} <span class="ink">{proof.ink}</span></h2>
       <p class="t-lede measure proof__intro">{proof.intro}</p>
 
+      <ul class="answers" data-enter="rise">
+        {proof.answers.map((a) => (
+          <li>
+            <p class="t-question">{a.question}</p>
+            <p class="t-h2"><span class="ink">{a.answer}</span></p>
+            <p class="t-lede">{a.body}</p>
+            <p class="exhibit__check"><strong>Check it:</strong> {a.check} {a.id === 'certified' && <a class="link" href="https://trust.trisian.com" rel="noopener">trust.trisian.com <span class="arrow" aria-hidden="true">→</span></a>}</p>
+          </li>
+        ))}
+      </ul>
+
       {proof.exhibits.map((ex, i) => (
         <article class:list={['exhibit', `exhibit--${ex.id}`]}>
           <div class="exhibit__text" data-enter="rise">
@@ -266,31 +205,13 @@ const stateMark: Record<string, string> = { in: '●', addon: '○', project: '�
             <p class="exhibit__check"><strong>Check it:</strong> {ex.check} {ex.id === 'certified' && <a class="link" href="https://trust.trisian.com" rel="noopener">trust.trisian.com <span class="arrow" aria-hidden="true">→</span></a>}</p>
           </div>
           <div class="exhibit__figure" data-enter={i % 2 ? 'open-left' : 'open'}>
-            {ex.id === 'clean' && (
-              <div class="clean ambient" role="img" aria-label="Illustration: a desktop ends at sign-out; the next sign-in starts clean, and the profile follows.">
-                <div class="clean__desk clean__desk--old"><ProductWindow compact /></div>
-                <div class="clean__desk clean__desk--new"><ProductWindow compact /></div>
-                <span class="clean__profile">Your profile</span>
-              </div>
-            )}
             {ex.id === 'passthrough' && (
               <Invoice />
-            )}
-            {ex.id === 'certified' && (
-              <table class="hold">
-                <caption class="sr-only">What Trisian holds, and what its controls support</caption>
-                <tbody>
-                  <tr><th scope="row" class="t-label">We hold</th><td class="t-h3">{proof.hold}</td></tr>
-                  {proof.support.map((s, k) => (
-                    <tr><th scope="row" class="t-label">{k === 0 ? 'Our controls support your obligations under' : ''}</th><td><span class="t-label">{s.plan}</span><span class="t-h3">{s.frameworks.join(' · ')}</span></td></tr>
-                  ))}
-                </tbody>
-              </table>
             )}
           </div>
         </article>
       ))}
-      <p class="t-small measure proof__qualifier">{proof.qualifier}</p>
+      <p class="t-small measure proof__qualifier">{proof.qualifier} <a class="link" href={url('trust')}>What we hold, and what we support <span class="arrow" aria-hidden="true">→</span></a></p>
     </div>
   </section>
 
@@ -298,12 +219,7 @@ const stateMark: Record<string, string> = { in: '●', addon: '○', project: '�
   <section class="who movement" id="who" data-ground="noon" aria-labelledby="who-h">
     <div class="wrap">
       <h2 class="t-h1 who__h" id="who-h">{who.heading.join(' ')} <span class="ink">{who.ink}</span>.</h2>
-      <div class="grid who__intro">
-        <p class="t-question">{who.sub}</p>
-        <ul class="isthis">
-          {who.isThisYou.map((line) => <li>{line}</li>)}
-        </ul>
-      </div>
+      <p class="t-question who__sub">{who.sub}</p>
     </div>
     <ul class="doors" data-enter="doors">
       {who.doors.map((door, k) => (
@@ -325,31 +241,10 @@ const stateMark: Record<string, string> = { in: '●', addon: '○', project: '�
     </div>
   </section>
 
-  <!-- 7 · Since 1998 ───────────────────────────────────────────────────── -->
-  <section class="since movement" id="since" data-ground="morning" aria-labelledby="since-h">
+  <!-- 7 · Since 1998, in one line ─────────────────────────────────────── -->
+  <section class="sinceline" data-ground="morning" aria-label="Our story">
     <div class="wrap">
-      <p class="since__year t-statement" aria-hidden="true" data-year data-enter="rise"><span>1998</span></p>
-      <h2 class="t-h1" id="since-h">{yearsInBusiness} years {since.heading} <span class="ink">{yearsInCloud} of them {since.ink}</span>.</h2>
-      <p class="t-lede measure">{since.intro}</p>
-    </div>
-    <div class="eras" role="region" aria-label="The company, era by era" tabindex="0" data-eras>
-      {since.eras.map((era) => (
-        <article class="era" data-era-year={era.year}>
-          <p class="era__year">{era.year}</p>
-          {erasReady && (
-            <div class="era__desk">
-              {eraSlot(era.year) ? <Photo slot={eraSlot(era.year)!} sizes="(min-width: 540px) 430px, 80vw" max={960} /> : <ProductWindow compact />}
-            </div>
-          )}
-          <h3 class="t-label">{era.name}</h3>
-          <p class="t-lede">{era.what}</p>
-          <p class="era__taught">{era.taught}</p>
-          <p class="t-small era__part">Became: {era.part}</p>
-        </article>
-      ))}
-    </div>
-    <div class="wrap">
-      <p class="t-h2 since__close measure">{since.closing}</p>
+      <p class="t-h2">{since.line} <a class="link" href={url('company')}>{since.link} <span class="arrow" aria-hidden="true">→</span></a></p>
     </div>
   </section>
 
@@ -363,8 +258,8 @@ const stateMark: Record<string, string> = { in: '●', addon: '○', project: '�
         <div class="start__how">
           <p>{start.how}</p>
           <div class="actions">
-            <a class="btn" href={url('start')}>Start with an assessment <span class="arrow" aria-hidden="true">→</span></a>
-            <a class="link" href="mailto:contact@trisian.com">contact@trisian.com</a>
+            <a class="btn" href={url('start')}>Request your assessment <span class="arrow" aria-hidden="true">→</span></a>
+            <a class="link" href={url('start') + '#talk'}>Or go straight to a conversation</a>
           </div>
         </div>
       </div>

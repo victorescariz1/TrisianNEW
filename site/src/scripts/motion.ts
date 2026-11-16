@@ -47,11 +47,13 @@ if ('IntersectionObserver' in window) {
 const inks = $$<HTMLElement>('.ink').filter((el) => !el.closest('.assemble'));
 if ('IntersectionObserver' in window) {
   inks.forEach((el) => el.setAttribute('data-ink', ''));
+  // Wipe to cobalt, then settle as plain text so no glyph edge is ever clipped by the painted box.
+  const ink = (el: Element) => { el.classList.add('is-inked'); window.setTimeout(() => el.classList.add('is-set'), 1400); };
   const io = new IntersectionObserver((entries) => {
-    for (const e of entries) if (e.isIntersecting) { e.target.classList.add('is-inked'); io.unobserve(e.target); }
+    for (const e of entries) if (e.isIntersecting) { ink(e.target); io.unobserve(e.target); }
   }, { rootMargin: '0px 0px -18% 0px', threshold: 0.4 });
   inks.forEach((el) => io.observe(el));
-  window.setTimeout(() => inks.forEach((el) => { if (el.getBoundingClientRect().top < window.innerHeight) el.classList.add('is-inked'); }), 1500);
+  window.setTimeout(() => inks.forEach((el) => { if (el.getBoundingClientRect().top < window.innerHeight) ink(el); }), 1500);
 }
 
 /* ── The ground: the page takes the time of day of whatever is centered ── */
@@ -155,7 +157,11 @@ if (eras && year && 'IntersectionObserver' in window) {
 const toggle = $<HTMLButtonElement>('[data-motion-toggle]');
 const syncToggle = () => {
   const paused = root.classList.contains('motion-paused');
-  if (toggle) { toggle.textContent = paused ? 'Play motion' : 'Pause motion'; toggle.setAttribute('aria-pressed', String(paused)); }
+  if (toggle) {
+    const label = toggle.querySelector('[data-motion-label]');
+    if (label) label.textContent = paused ? 'Motion off' : 'Motion on';
+    toggle.setAttribute('aria-checked', String(!paused));
+  }
 };
 toggle?.addEventListener('click', () => {
   const paused = root.classList.toggle('motion-paused');
@@ -163,5 +169,18 @@ toggle?.addEventListener('click', () => {
   syncToggle();
 });
 syncToggle();
+
+/* ── Measurement: named actions only, and only if measurement is switched on ── */
+const track = (name: string, props?: Record<string, string>) => {
+  const send = (window as unknown as { plausible?: (n: string, o?: { props: Record<string, string> }) => void }).plausible;
+  if (typeof send === 'function') send(name, props ? { props } : undefined);
+};
+(window as unknown as { trisianTrack: typeof track }).trisianTrack = track;
+document.addEventListener('click', (e) => {
+  const el = (e.target as Element | null)?.closest<HTMLElement>('[data-track], a.btn');
+  if (!el) return;
+  const where = el.closest('header') ? 'header' : el.closest('footer') ? 'footer' : el.closest('section')?.id || 'page';
+  track(el.dataset.track || 'Assessment requested', { where });
+});
 
 export {};

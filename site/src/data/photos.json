@@ -1,22 +1,147 @@
 {
   "note": "One entry per photo window. `file` is the base name in src/assets/photos/ (any image extension). Until that file exists the window shows its coded daylight. `position` is the focal point kept in view when the window crops the frame; for a door it is also the point the closed door is centered on. `wide` is the focal point used where the same frame fills a wide band (a door page's hero). `alt` describes the frame that is in the window.",
   "slots": {
-    "home-hero": { "shot": "P1", "file": "p01-morning-desk", "ratio": "4:5", "light": "morning", "position": "72% 70%", "alt": "A woman reads at her desk with a cup of coffee, beside a wall lit by morning sun through a window." },
-    "beat-morning": { "shot": "P3", "file": "p03-kitchen-table", "ratio": "3:2", "light": "morning", "position": "68% 45%", "alt": "A man opens a laptop on a kitchen table at home in the morning." },
-    "beat-midmorning": { "shot": "P4", "file": "p04-office-floor", "ratio": "3:2", "light": "noon", "position": "38% 50%", "alt": "A bright office in mid-morning. People work at their desks and two colleagues talk by the window." },
-    "beat-afternoon": { "shot": "P5", "file": "p05-colleagues", "ratio": "3:2", "light": "gold", "position": "38% 50%", "alt": "In warm afternoon light, a man leans in beside a colleague at her desk to look at something with her." },
-    "beat-evening": { "shot": "P6", "file": "p06-sign-out", "ratio": "3:2", "light": "dusk", "position": "30% 50%", "alt": "At dusk, a woman with her coat on closes her laptop while colleagues pack up behind her." },
-    "beat-night": { "shot": "P7", "file": "p07-night-office", "ratio": "3:2", "light": "night", "position": "40% 50%", "alt": "The same office at night, empty, with one lamp on and city lights beyond the windows." },
-    "beat-dawn": { "shot": "P16", "file": "p16-dawn-desk", "ratio": "3:2", "light": "gold", "position": "45% 50%", "alt": "An empty desk by a window at first light, with a closed laptop, a notebook and the chair pushed in." },
-    "door-financial-services": { "shot": "P8", "file": "p08-advisory-room", "ratio": "4:5", "light": "noon", "position": "42% 82%", "wide": "50% 79%", "alt": "Three people review printed documents at a table in a small glass-walled meeting room." },
-    "door-healthcare": { "shot": "P9", "file": "p09-front-office", "ratio": "4:5", "light": "morning", "position": "50% 70%", "wide": "50% 78%", "alt": "An administrator works at the front desk of a medical practice while a clinician in scrubs passes with a tablet." },
-    "door-legal": { "shot": "P10", "file": "p10-law-office", "ratio": "4:5", "light": "gold", "position": "42% 84%", "wide": "50% 90%", "alt": "A lawyer reads a document at his desk in a small law office lined with bound volumes." },
-    "door-growing-businesses": { "shot": "P11", "file": "p11-shared-table", "ratio": "4:5", "light": "dusk", "position": "27% 70%", "wide": "50% 100%", "alt": "Four people work on laptops at a long shared table." },
-    "era-1998": { "shot": "P12", "file": "p12-desk-1998", "ratio": "3:2", "light": "morning", "position": "50% 50%", "alt": "An office desk in 1998: a beige tower computer, a CRT monitor, floppy disks, a desk calendar and stacks of paper folders." },
-    "era-2010": { "shot": "P13", "file": "p13-desk-2010", "ratio": "3:2", "light": "morning", "position": "50% 50%", "alt": "The same desk in 2010: a small thin-client box, a flat monitor, a keyboard and a desk phone." },
-    "era-2010s": { "shot": "P18", "file": "p18-desk-2010s", "ratio": "3:2", "light": "morning", "position": "50% 50%", "alt": "The same desk in the mid-2010s: two flat monitors with a thin client mounted behind one, and a smartphone." },
-    "era-2024": { "shot": "P14", "file": "p14-desk-2024", "ratio": "3:2", "light": "morning", "position": "50% 50%", "alt": "The same desk in 2024: a laptop on a dock beside one monitor, and a notepad." },
-    "band-dawn": { "shot": "P17", "file": "p17-first-light", "ratio": "16:9", "light": "gold", "position": "50% 30%", "alt": "", "decorative": true }
+    "home-hero": {
+      "shot": "P19",
+      "file": "p19-morning-team",
+      "ratio": "4:5",
+      "light": "morning",
+      "position": "40% 62%",
+      "alt": "A bright office in the morning. A man leans in beside a colleague at her laptop, another works at the next desk, and two people talk by the window."
+    },
+    "beat-morning": {
+      "shot": "P3",
+      "file": "p03-kitchen-table",
+      "ratio": "3:2",
+      "light": "morning",
+      "position": "68% 45%",
+      "alt": "A man opens a laptop on a kitchen table at home in the morning."
+    },
+    "beat-midmorning": {
+      "shot": "P4",
+      "file": "p04-office-floor",
+      "ratio": "3:2",
+      "light": "noon",
+      "position": "38% 50%",
+      "alt": "A bright office in mid-morning. People work at their desks and two colleagues talk by the window."
+    },
+    "beat-afternoon": {
+      "shot": "P5",
+      "file": "p05-colleagues",
+      "ratio": "3:2",
+      "light": "gold",
+      "position": "38% 50%",
+      "alt": "In warm afternoon light, a man leans in beside a colleague at her desk to look at something with her."
+    },
+    "beat-evening": {
+      "shot": "P6",
+      "file": "p06-sign-out",
+      "ratio": "3:2",
+      "light": "dusk",
+      "position": "30% 50%",
+      "alt": "At dusk, a woman with her coat on closes her laptop while colleagues pack up behind her."
+    },
+    "beat-night": {
+      "shot": "P7",
+      "file": "p07-night-office",
+      "ratio": "3:2",
+      "light": "night",
+      "position": "40% 50%",
+      "alt": "The same office at night, empty, with one lamp on and city lights beyond the windows."
+    },
+    "beat-dawn": {
+      "shot": "P16",
+      "file": "p16-dawn-desk",
+      "ratio": "3:2",
+      "light": "gold",
+      "position": "45% 50%",
+      "alt": "An empty desk by a window at first light, with a closed laptop, a notebook and the chair pushed in."
+    },
+    "door-financial-services": {
+      "shot": "P8",
+      "file": "p08-advisory-room",
+      "ratio": "4:5",
+      "light": "noon",
+      "position": "42% 82%",
+      "wide": "50% 79%",
+      "alt": "Three people review printed documents at a table in a small glass-walled meeting room."
+    },
+    "door-healthcare": {
+      "shot": "P9",
+      "file": "p09-front-office",
+      "ratio": "4:5",
+      "light": "morning",
+      "position": "50% 70%",
+      "wide": "50% 78%",
+      "alt": "An administrator works at the front desk of a medical practice while a clinician in scrubs passes with a tablet."
+    },
+    "door-legal": {
+      "shot": "P10",
+      "file": "p10-law-office",
+      "ratio": "4:5",
+      "light": "gold",
+      "position": "42% 84%",
+      "wide": "50% 90%",
+      "alt": "A lawyer reads a document at his desk in a small law office lined with bound volumes."
+    },
+    "door-growing-businesses": {
+      "shot": "P11",
+      "file": "p11-shared-table",
+      "ratio": "4:5",
+      "light": "dusk",
+      "position": "27% 70%",
+      "wide": "50% 100%",
+      "alt": "Four people work on laptops at a long shared table."
+    },
+    "era-1998": {
+      "shot": "P12",
+      "file": "p12-desk-1998",
+      "ratio": "3:2",
+      "light": "morning",
+      "position": "50% 50%",
+      "alt": "An office desk in 1998: a beige tower computer, a CRT monitor, floppy disks, a desk calendar and stacks of paper folders."
+    },
+    "era-2010": {
+      "shot": "P13",
+      "file": "p13-desk-2010",
+      "ratio": "3:2",
+      "light": "morning",
+      "position": "50% 50%",
+      "alt": "The same desk in 2010: a small thin-client box, a flat monitor, a keyboard and a desk phone."
+    },
+    "era-2010s": {
+      "shot": "P18",
+      "file": "p18-desk-2010s",
+      "ratio": "3:2",
+      "light": "morning",
+      "position": "50% 50%",
+      "alt": "The same desk in the mid-2010s: two flat monitors with a thin client mounted behind one, and a smartphone."
+    },
+    "era-2024": {
+      "shot": "P14",
+      "file": "p14-desk-2024",
+      "ratio": "3:2",
+      "light": "morning",
+      "position": "50% 50%",
+      "alt": "The same desk in 2024: a laptop on a dock beside one monitor, and a notepad."
+    },
+    "band-dawn": {
+      "shot": "P17",
+      "file": "p17-first-light",
+      "ratio": "16:9",
+      "light": "gold",
+      "position": "50% 30%",
+      "alt": "",
+      "decorative": true
+    },
+    "remote-desk": {
+      "shot": "P1",
+      "file": "p01-morning-desk",
+      "ratio": "4:5",
+      "light": "morning",
+      "position": "72% 70%",
+      "alt": "A woman reads at her desk at home with a cup of coffee."
+    }
   },
   "eras": {
     "1998": "era-1998",

@@ -1,11 +1,12 @@
 ---
-import { url } from '../lib/url';
+import { asset, url } from '../lib/url';
 const year = new Date().getFullYear();
 ---
 <footer class="site-footer">
   <div class="wrap grid">
     <div class="statement">
-      <p class="t-lede">Trisian builds and runs Safe Workspace, a managed cloud desktop service for organizations that have to defend their decisions. In business since 1998.</p>
+      <img class="footer-logo" src={asset('brand/trisian-logo.svg')} alt="Trisian" width="904" height="200" loading="lazy" />
+      <p class="t-lede">Trisian builds and runs Safe Workspace, a managed cloud desktop service for organizations that have to defend their decisions. Founded in 1998.</p>
       <p class="signoff">Less noise. More proof.</p>
     </div>
     <nav aria-label="Safe Workspace">
@@ -32,12 +33,13 @@ const year = new Date().getFullYear();
         <li><a href="https://trust.trisian.com" rel="noopener">Trust Center</a></li>
         <li><a href={url('company')}>Company</a></li>
         <li><a href="mailto:contact@trisian.com">contact@trisian.com</a></li>
+        <li><a href={url('privacy')}>Privacy</a></li>
       </ul>
     </nav>
     <div class="legal">
       <p>© {year} All IT Host Inc. Trisian is the trading name of All IT Host Inc.</p>
       <p>Microsoft, Azure, Microsoft 365 and Windows are trademarks of the Microsoft group of companies.</p>
-      <button type="button" class="link" data-motion-toggle aria-pressed="false">Pause motion</button>
+      <button type="button" class="motion-toggle" data-motion-toggle role="switch" aria-checked="true"><span class="motion-toggle__track" aria-hidden="true"><span></span></span><span data-motion-label>Motion on</span></button>
     </div>
   </div>
 </footer>

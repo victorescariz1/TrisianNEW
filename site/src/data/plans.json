@@ -1,16 +1,28 @@
 {
   "_source": "The plan table (reference §5.1). The single source for the plan switch, the comparison table and any plan fact quoted in copy.",
-  "states": { "in": "In the fee", "addon": "Add-on", "project": "Project", "no": "Not offered" },
+  "states": {
+    "in": "In the fee",
+    "addon": "Add-on",
+    "project": "Project",
+    "no": "Not in this tier"
+  },
+  "every": [
+    "One standard image, centrally managed",
+    "A published security baseline, kept free of drift",
+    "Automated patching and scaling",
+    "24x7 automated platform monitoring",
+    "One point of contact, and one owner for every issue"
+  ],
   "plans": [
     {
       "id": "core",
       "name": "Core",
-      "line": "The foundation.",
+      "line": "A secure, managed workspace for teams of 50 to 300.",
       "license": "Microsoft 365 Business Premium",
       "users": "50 to 300 users",
-      "support": "Support Monday to Friday, 9:00 AM to 5:00 PM, your local time",
+      "support": "Standard support Monday through Friday, 9:00 AM to 5:00 PM, your local time",
       "frameworks": [],
-      "frameworksNote": "No specific regulation"
+      "frameworksNote": ""
     },
     {
       "id": "advanced",
@@ -18,29 +30,85 @@
       "line": "For organizations with a framework to answer to.",
       "license": "Microsoft 365 E3",
       "users": "50 or more users",
-      "support": "Critical and high-impact incidents covered 24/7; other requests Monday to Friday, 9:00 AM to 5:00 PM, your local time",
-      "frameworks": ["CIS Controls v8.1", "NIST CSF 2.0", "HIPAA"],
+      "support": "Critical and high-impact incidents covered 24/7; other requests Monday through Friday, 9:00 AM to 5:00 PM, your local time",
+      "frameworks": [
+        "CIS Controls v8.1",
+        "NIST CSF 2.0",
+        "HIPAA"
+      ],
       "frameworksNote": ""
     },
     {
       "id": "enterprise",
       "name": "Enterprise",
-      "line": "For the strictest requirements.",
+      "line": "For organizations that answer to several.",
       "license": "Microsoft 365 E5",
       "users": "50 or more users",
-      "support": "Critical and high-impact incidents covered 24/7; other requests Monday to Friday, 9:00 AM to 5:00 PM, your local time",
-      "frameworks": ["SOC 2", "ISO/IEC 27001", "HITRUST"],
+      "support": "Critical and high-impact incidents covered 24/7; other requests Monday through Friday, 9:00 AM to 5:00 PM, your local time",
+      "frameworks": [
+        "SOC 2",
+        "ISO/IEC 27001",
+        "HITRUST"
+      ],
       "frameworksNote": "In addition to Advanced"
     }
   ],
   "rows": [
-    { "label": "Named Technical Account Manager", "part": "support", "core": "no", "advanced": "no", "enterprise": "in" },
-    { "label": "CIS-hardened images", "part": "security", "core": "no", "advanced": "in", "enterprise": "in" },
-    { "label": "Advanced email security and email authentication", "part": "security", "core": "addon", "advanced": "in", "enterprise": "in" },
-    { "label": "Personal device management and web filtering", "part": "security", "core": "project", "advanced": "project", "enterprise": "project" },
-    { "label": "Infrastructure health monitoring", "part": "monitoring", "core": "addon", "advanced": "in", "enterprise": "in" },
-    { "label": "User experience monitoring", "part": "monitoring", "core": "addon", "advanced": "addon", "enterprise": "in" },
-    { "label": "Centralized threat detection and response", "part": "security", "core": "addon", "advanced": "addon", "enterprise": "in" },
-    { "label": "Dedicated host pools and Zero Trust architecture", "part": "security", "core": "no", "advanced": "no", "enterprise": "in" }
+    {
+      "label": "A named Technical Account Manager from Trisian, assigned to your account",
+      "part": "support",
+      "core": "no",
+      "advanced": "no",
+      "enterprise": "in"
+    },
+    {
+      "label": "CIS-hardened images",
+      "part": "security",
+      "core": "addon",
+      "advanced": "in",
+      "enterprise": "in"
+    },
+    {
+      "label": "Advanced email security and email authentication",
+      "part": "security",
+      "core": "addon",
+      "advanced": "in",
+      "enterprise": "in"
+    },
+    {
+      "label": "Personal device management and web filtering",
+      "part": "security",
+      "core": "project",
+      "advanced": "project",
+      "enterprise": "project"
+    },
+    {
+      "label": "Infrastructure health monitoring",
+      "part": "monitoring",
+      "core": "addon",
+      "advanced": "in",
+      "enterprise": "in"
+    },
+    {
+      "label": "User experience monitoring",
+      "part": "monitoring",
+      "core": "addon",
+      "advanced": "addon",
+      "enterprise": "in"
+    },
+    {
+      "label": "Centralized threat detection and response",
+      "part": "security",
+      "core": "addon",
+      "advanced": "addon",
+      "enterprise": "in"
+    },
+    {
+      "label": "Dedicated host pools and Zero Trust architecture",
+      "part": "security",
+      "core": "no",
+      "advanced": "no",
+      "enterprise": "in"
+    }
   ]
 }

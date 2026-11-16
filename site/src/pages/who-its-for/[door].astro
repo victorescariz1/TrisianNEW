@@ -14,7 +14,7 @@ export function getStaticPaths() {
 const { door } = Astro.props;
 const others = doorPages.filter((d) => d.id !== door.id);
 ---
-<Base title={`${door.name} — Trisian`} description={`${door.lines.join(' ')} ${door.ink}.`} current="who-its-for">
+<Base title={`${door.name} · Trisian`} description={`${door.lines.join(' ')} ${door.ink}.`} current="who-its-for">
   <section class="door-hero" data-ground={door.light === 'dusk' ? 'dusk' : door.light === 'gold' ? 'gold' : 'morning'}>
     <div class="door-hero__light" style={`view-transition-name: door-${door.id}`}><Photo slot={`door-${door.id}` as SlotId} sizes="100vw" eager wide /></div>
     <div class="wrap door-hero__inner">

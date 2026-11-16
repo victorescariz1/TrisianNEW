@@ -1,0 +1,42 @@
+---
+import Base from '../layouts/Base.astro';
+import '../styles/home.css';
+import '../styles/pages.css';
+const updated = 'November 16, 2026';
+const sections = [
+  { h: 'Who we are', p: ['Trisian is the trading name of All IT Host Inc., a company founded in Florida in 1998. All IT Host Inc. is responsible for the personal information described on this page. You can reach us at contact@trisian.com.'] },
+  { h: 'What this page covers', p: ['This page covers this website. The information we handle for clients inside Safe Workspace is governed by each client’s agreement with us, not by this page.'] },
+  { h: 'What we collect, and why', list: [
+    ['When you email us', 'Your email address and whatever you choose to write. We use it to answer you.'],
+    ['When you book a conversation', 'Your name, work email, company, how many people you have, and what you need answered. We use it to prepare for the conversation and to follow up on it.'],
+    ['When you take the assessment', 'Nothing. Your answers are counted in your browser and are not sent to us. We only see them if you choose to share them.'],
+    ['When you visit', 'Our hosting provider keeps standard technical logs, such as the address a request came from and the page requested, to keep the site running and secure.'],
+  ] },
+  { h: 'Cookies and measurement', p: ['This site sets no advertising or tracking cookies. If we measure how the site is used, we do it with a service that uses no cookies and collects no personal information: it counts visits and named actions, such as starting the assessment, in aggregate.', 'The site stores one preference in your browser if you switch motion off, so that it stays off on your next visit.'] },
+  { h: 'Who we share it with', p: ['We do not sell personal information, and we do not share it for advertising. We use a small number of providers to run this site and our email and scheduling, including Microsoft. They handle information on our behalf and under our instructions.'] },
+  { h: 'How long we keep it', p: ['We keep emails and booking details for as long as the conversation with you is active, and for a reasonable period afterwards so that we have a record of it. You can ask us to delete them sooner.'] },
+  { h: 'Your choices', p: ['You can ask us what personal information we hold about you, and ask us to correct it or delete it, by writing to contact@trisian.com. Depending on where you live, including in the European Union, the United Kingdom and several US states, the law gives you further rights, such as objecting to how your information is used or lodging a complaint with your data protection authority. We answer every request.'] },
+  { h: 'Security', p: ['Trisian is certified to ISO/IEC 27001:2022. For a security question, write to security@trisian.com. Our security documents are at trust.trisian.com.'] },
+  { h: 'Changes to this page', p: ['If we change how we handle personal information, we will update this page and the date at the top of it.'] },
+];
+---
+<Base title="Privacy · Trisian" description="What personal information this website handles, why, and the choices you have." current="">
+  <section class="band" data-ground="morning" aria-labelledby="privacy-h" style="padding-top: calc(var(--section) + 40px); padding-bottom: var(--section)">
+    <div class="wrap band__grid">
+      <div class="band__head">
+        <h1 class="t-h1" id="privacy-h">Privacy</h1>
+        <p class="t-small">Last updated {updated}</p>
+      </div>
+      <div class="band__body legal-text">
+        <p class="t-lede">This page says what personal information this website handles, why, and the choices you have. It is written to be read.</p>
+        {sections.map((s) => (
+          <section>
+            <h2 class="t-h3">{s.h}</h2>
+            {s.p?.map((text) => <p>{text}</p>)}
+            {s.list && <dl>{s.list.map(([term, text]) => <><dt>{term}</dt><dd>{text}</dd></>)}</dl>}
+          </section>
+        ))}
+      </div>
+    </div>
+  </section>
+</Base>

@@ -1,0 +1,24 @@
+---
+// The three plans side by side, as a ladder: Core in full, then what each plan adds to the one before.
+import plans from '../data/plans.json';
+type Row = Record<string, string>;
+const rows = plans.rows as Row[];
+const ids = plans.plans.map((p) => p.id);
+const added = (i: number) => rows.filter((r) => r[ids[i]] === 'in' && (i === 0 || r[ids[i - 1]] !== 'in')).map((r) => r.label);
+---
+<ol class="ladder">
+  {plans.plans.map((p, i) => (
+    <li class="ladder__plan">
+      <div class="ladder__head">
+        <h3 class="t-h2">{p.name}</h3>
+        <p class="ladder__line">{p.line}</p>
+        <p class="t-small">{p.license} · {p.users}</p>
+      </div>
+      <div class="ladder__adds">
+        <h4 class="t-label">{i === 0 ? 'What you get' : `Everything in ${plans.plans[i - 1].name}, and`}</h4>
+        <ul>{(i === 0 ? plans.every : added(i)).map((item) => <li>{item}</li>)}</ul>
+      </div>
+      {p.frameworks.length > 0 && <p class="t-small ladder__frameworks"><span class="t-label">Our controls support</span> {p.frameworks.join(' · ')}</p>}
+    </li>
+  ))}
+</ol>

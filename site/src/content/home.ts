@@ -6,9 +6,10 @@ export const hero = {
   eyebrow: 'Safe Workspace · a managed cloud desktop service',
   lines: ['Your workspace,', 'answered in'],
   ink: 'advance',
-  lede: 'We build your organization’s desktop environment in your own cloud, then run it for you: the desktop, Microsoft 365, security, monitoring, compliance controls and support. One accountable team. One price per user. A scope agreed in writing.',
-  facts: ['In business since 1998', 'ISO/IEC 27001:2022 certified', 'Built in your own cloud', 'Passthrough, no markup', 'From 50 users'],
-  signin: ['Good morning.', 'Signed in.', 'Your desktop is ready, built fresh from the golden image.', 'Your files and settings are where you left them.'],
+  lede: 'We build your organization’s workspace in your own cloud and run it for you: desktop, Microsoft 365, security, monitoring, compliance controls and support. One accountable partner. One price per user. A scope agreed in writing.',
+  close: 'Ready for your next client, hire or audit.',
+  facts: ['ISO/IEC 27001:2022 certified', 'Built in your own cloud', 'Passthrough, no markup', 'From 50 users'],
+  signin: ['Good morning.', 'Signed in.', 'Your desktop is ready.', 'Your files and settings are where you left them.'],
   truth: ['BP §4.1', 'BP §1.4', 'BP §1.3', 'BP §10.1', 'BP §4.3', 'BP §8.4', 'BP §5.1', 'BP §4.6', '01 §20'],
 };
 
@@ -21,12 +22,12 @@ export const layers = {
   closingNote: 'Inside the Managed Scope.',
   truth: ['BP §4.1', 'BP §4.7', 'BP §4.2'],
   items: [
-    { id: 'desktop', title: 'The desktop', body: 'A Windows desktop in the cloud, delivered on Azure Virtual Desktop. Every one is built from the same golden image, so every desktop starts the same way.', detail: 'Your files and settings follow you in a managed profile.', truth: ['BP §4.3', 'BP §4.6', '01 §20c'] },
-    { id: 'm365', title: 'Microsoft 365', body: 'Mail, files and meetings, with the license that comes with your plan: Business Premium, E3 or E5. Passed through, no markup.', detail: 'One less agreement to manage.', truth: ['BP §5.1', 'BP §8.5'] },
-    { id: 'security', title: 'Security', body: 'Every access is verified. Data is encrypted at rest and in transit. And the whole environment is held to a published security baseline that is applied and kept free of drift.', detail: 'Endpoint protection is included with your Microsoft 365 license.', truth: ['BP §1.4', 'BP §2.4', 'BP §4.4', 'BP §4.5'] },
-    { id: 'monitoring', title: 'Monitoring', body: 'Platform monitoring is automated and runs 24x7. Patching, re-imaging and scaling happen on their own, on schedule.', detail: 'No one files a ticket for a patch.', truth: ['BP §4.4', 'BP §4.7'] },
-    { id: 'compliance', title: 'Compliance controls', body: 'Technical controls that support the frameworks your plan covers, and a clear line between what we own and what stays with you.', detail: 'Six frameworks, by plan.', truth: ['BP §5.1', 'BP §10.3'] },
-    { id: 'support', title: 'Support', body: 'One point of contact. One owner for every issue. A service desk that goes from Level 1 to Level 3.', detail: 'People, not a queue.', truth: ['BP §3.1', 'BP §3.3'] },
+    { id: 'security', group: 'What’s protected', title: 'Security', body: 'Every access is verified. Data is encrypted at rest and in transit. And the whole environment is held to a published security baseline that is applied and kept free of drift.', detail: 'Every plan comes with Microsoft Defender endpoint protection, through its Microsoft 365 license.', truth: ['BP §1.4', 'BP §2.4', 'BP §4.4', 'BP §4.5'] },
+    { id: 'monitoring', group: 'What’s protected', title: 'Monitoring', body: 'Automated platform monitoring, 24x7. Patching and scaling run on schedule.', detail: 'No one files a ticket for a patch.', truth: ['BP §4.4', 'BP §4.7'] },
+    { id: 'desktop', group: 'How the day runs', title: 'The desktop', body: 'A Windows desktop in the cloud, delivered on Azure Virtual Desktop. Every desktop is built to the same standard.', detail: 'Your files and settings follow you in a managed profile.', truth: ['BP §4.3', 'BP §4.6', '01 §20c'] },
+    { id: 'm365', group: 'How the day runs', title: 'Microsoft 365', body: 'Mail, files and meetings, on the license that comes with your plan: Business Premium, E3 or E5. Passthrough, no markup.', detail: 'One less agreement to manage.', truth: ['BP §5.1', 'BP §8.5'] },
+    { id: 'support', group: 'How the day runs', title: 'Support', body: 'One point of contact. One owner for every issue, from the first call to the fix.', detail: 'People, not a queue.', truth: ['BP §3.1', 'BP §3.3'] },
+    { id: 'compliance', group: 'What you can prove', title: 'Compliance controls', body: 'Technical controls that support the frameworks your plan covers, and a clear line between what we own and what stays with you.', detail: 'Six frameworks, by plan.', truth: ['BP §5.1', 'BP §10.3'] },
   ],
 };
 
@@ -35,14 +36,8 @@ export const built = {
   rest: 'Built around',
   ink: 'you',
   question: 'Is it the same for everyone?',
-  intro: 'We build desktop environments for a living. Every one starts from the same curated foundation, and no two finish the same.',
+  intro: 'Every workspace starts from the same curated foundation, and no two finish the same. Choose a plan to see what it adds.',
   truth: ['01 §20', 'BP §1.5'],
-  steps: [
-    { id: 'foundation', title: 'The foundation', body: 'The same for everyone on a plan: one golden image, a published security baseline, automated patching, scaling and monitoring.', truth: ['BP §4.4', 'BP §5.1'] },
-    { id: 'yours', title: 'Made yours', body: 'Your applications in the image. Single- or multi-session desktops, chosen for how your people work. The add-ons you need, and none you don’t.', truth: ['BP §4.6', 'BP §6.1'] },
-    { id: 'shaped', title: 'Shaped by what we recommend, and what you answer to', body: 'The assessment shows where you stand on security, performance and compliance. We recommend the plan and the gaps to close, and build around the rules you answer to.', truth: ['BP §6.4', 'BP §5.1', 'BP §10.3'] },
-    { id: 'supported', title: 'Built, then supported', body: 'Building it is a project: scoped, quoted and finished. Then we support what we built, including everything those projects put in place. That is Safe Workspace.', truth: ['BP §6.2', 'BP §3.2', 'BP §4.2', '01 §20.9'] },
-  ],
   where: {
     question: 'Where does it run?',
     answer: 'In your own cloud.',
@@ -54,53 +49,58 @@ export const built = {
 };
 
 export const scope = {
-  question: 'When something goes wrong, whose problem is it?',
+  question: 'What do we take care of?',
   heading: ['Inside the scope,'],
-  ink: 'ours',
-  after: 'Not just the ticket. The outcome.',
-  body: 'Managed Scope is everything across infrastructure, security, compliance and support that we take operational responsibility for. Anything inside it has an owner, a service level and a resolution path. Anything outside it is defined as such, in writing. You know in advance, not during an incident.',
+  ink: 'we own the outcome',
+  after: 'Not just the ticket.',
+  body: 'Managed Scope is everything we take operational responsibility for, across infrastructure, security, compliance and support. Inside it, every issue has an owner and a path to resolution. Outside it, the line is drawn in writing. You know in advance, not during an incident.',
+  evidence: { body: 'Need the evidence for your audit? Continuous evidence collection is available on every plan.', truth: ['BP §4.7', 'BP §6.1'] },
   principle: 'We support what we build.',
+  care: [
+    { name: 'We build it', body: 'Your workspace, and everything our projects put in place.', truth: ['BP §4.2', 'BP §6.2'] },
+    { name: 'We keep it secure', body: 'Access, encryption and the baseline, applied and kept free of drift.', truth: ['BP §4.4'] },
+    { name: 'We keep it current', body: 'Patching and scaling, automated and on schedule.', truth: ['BP §4.7'] },
+    { name: 'We watch it', body: 'Automated platform monitoring, 24x7.', truth: ['BP §4.4'] },
+    { name: 'We keep the controls in place', body: 'The technical controls your framework asks for.', truth: ['BP §10.3'] },
+    { name: 'We answer for it', body: 'One point of contact and one owner for every issue, including the vendors involved.', truth: ['BP §4.2', 'BP §4.4'] },
+  ],
+  written: 'Your scope is agreed in writing before you sign. Nothing about it is a surprise later.',
   truth: ['BP §4.2', '01 §20.9', '01 §20.10'],
   line: [
     { area: 'Day to day', ours: 'The workspace we built, and everything our projects put in place', yours: 'Your business applications, your devices, your internet connection', truth: ['BP §4.2', 'BP §7.1'] },
-    { area: 'Compliance', ours: 'The technical controls, and the evidence for them', yours: 'Your program, your policies, your auditor', truth: ['BP §10.3'] },
+    { area: 'Compliance', ours: 'The technical controls your framework asks for, configured and kept in place', yours: 'Your program, your policies, your auditor', truth: ['BP §10.3'] },
     { area: 'The cloud', ours: 'Building it and running it', yours: 'The tenant and the subscription. They are in your name', truth: ['BP §4.3', 'BP §8.4'] },
   ],
-  commitments: [
-    { lead: 'You don’t chase vendors.', body: 'If it starts inside and we can’t resolve it alone, we own the escalation and the communication.' },
-    { lead: 'The boundary was set in writing.', body: 'If it starts outside (a third-party application, hardware, an internet provider), you knew that at onboarding.' },
-    { lead: 'Scope doesn’t move mid-contract.', body: 'Additions go through a formal change order, documented and priced before work begins.' },
-  ],
-  commitmentsTruth: ['BP §4.2'],
-  explorerPrompt: 'Whose problem is it? Try a few.',
+  explorerPrompt: 'Where does it land? Try a few.',
   qualifier: 'Examples. Your own scope is set in writing at onboarding.',
 };
 
 export const tuesday = {
   heading: ['A Tuesday,', 'answered in'],
   ink: 'advance',
-  intro: 'Not in a brochure. On an ordinary Tuesday.',
+  intro: 'An ordinary working day, hour by hour. Every question it raises already has an answer.',
   signoff: 'Where probably stops, Trisian starts.',
   truth: ['BP §4.4', 'BP §4.6', 'BP §5.1', 'BP §3.1'],
   beats: [
-    { id: 'morning', time: 'Morning', scene: 'Sign-in', ground: 'morning', hosts: 3, question: 'Is this the same desktop as yesterday?', answer: 'No. It’s a clean one.', body: 'Every sign-in starts fresh from the golden image. Your files and settings are waiting in your profile.', truth: ['BP §4.6'] },
-    { id: 'midmorning', time: 'Mid-morning', scene: 'Everyone arrives', ground: 'noon', hosts: 7, question: 'Will it cope?', answer: 'Capacity follows people.', body: 'Session hosts are created as demand rises and removed as it falls.', truth: ['BP §4.4', 'BP §4.6'] },
-    { id: 'afternoon', time: 'Afternoon', scene: 'Someone needs help', ground: 'gold', hosts: 6, question: 'Who do they call?', answer: 'One service desk. One owner for the issue.', body: '', truth: ['BP §3.1'] },
-    { id: 'evening', time: 'Evening', scene: 'Sign-out', ground: 'dusk', hosts: 2, question: 'What’s left behind?', answer: 'Nothing on the desktop.', body: 'Every sign-out ends the session.', truth: ['BP §4.6'] },
-    { id: 'night', time: 'Night', scene: 'The office is dark', ground: 'night', hosts: 1, question: 'Did the patches run? Is anyone watching?', answer: 'Patching is automated, on schedule. Platform monitoring is automated, 24x7.', body: 'The golden image is backed up for platform recovery. On Advanced and Enterprise, critical and high-impact incidents are covered around the clock.', truth: ['BP §4.4', 'BP §5.1'] },
-    { id: 'dawn', time: 'Dawn', scene: 'Tomorrow', ground: 'gold', hosts: 2, question: '', answer: 'It starts clean again.', body: '', truth: ['BP §4.6'] },
+    { id: 'morning', time: 'Morning', scene: 'Sign-in', ground: 'morning', hosts: 3, question: 'Is everything where I left it?', answer: 'Yes. Your files and settings follow you.', body: 'Desktops are non-persistent: nothing lives on the desktop itself.', truth: ['BP §4.6'] },
+    { id: 'midmorning', time: 'Mid-morning', scene: 'Everyone arrives', ground: 'noon', hosts: 7, question: 'Will it cope?', answer: 'Capacity follows people.', body: 'The workspace grows as your people sign in.', truth: ['BP §4.4'] },
+    { id: 'afternoon', time: 'Afternoon', scene: 'Someone needs help', ground: 'gold', hosts: 6, question: 'Who do they call?', answer: 'One service desk. One owner for the issue.', body: 'Inside the scope, we own the outcome, not just the ticket.', truth: ['BP §4.2', 'BP §4.4'] },
+    { id: 'night', time: 'Night', scene: 'The office is dark', ground: 'night', hosts: 1, question: 'Is anyone watching?', answer: 'Platform monitoring is automated, 24x7. Patching runs on schedule.', body: 'On Advanced and Enterprise, critical and high-impact incidents are covered 24/7.', truth: ['BP §4.4', 'BP §5.1'] },
   ],
 };
 
 export const proof = {
   statement: 'Not protection.',
   ink: 'Proof.',
-  intro: 'Sooner or later someone asks what you knew, and when: an auditor, a board, a client. It’s an easier question when the answer was written before it was asked. Here are three things about Safe Workspace you can check for yourself.',
+  intro: 'Sooner or later someone asks what you knew, and when: an auditor, a board, a client. Here is what is already answered.',
+  answers: [
+    { id: 'owner', question: 'Who owns what?', answer: 'It’s in writing before you sign.', body: 'Every task has an owner: ours, yours or Microsoft’s. The scope does not move mid-contract without a formal change order.', check: 'Ask us for the scope.', truth: ['BP §4.2'] },
+    { id: 'baseline', question: 'What’s protected?', answer: 'A published security baseline.', body: 'Applied to your whole environment and kept free of drift, at the level your plan sets.', check: 'Ask for the baseline of your plan.', truth: ['BP §4.4'] },
+    { id: 'certified', question: 'Can you prove it?', answer: 'ISO/IEC 27001:2022, certified.', body: 'By an accredited certification body, with zero non-conformities in the internal audit and in the certification audit. The scope names Safe Workspace.', check: 'The certificate details are on the Trust Center.', truth: ['BP §10.1', 'BP §10.2'] },
+  ],
   truth: [],
   exhibits: [
-    { id: 'clean', title: 'A clean start, every sign-in', question: 'What happens to a desktop after someone has used it?', answer: 'It ends with the session.', body: 'Every sign-out ends the session, and the next sign-in starts clean from the golden image. People can’t install software or save files outside their profile, so nothing lives on the desktop in between. Their files and settings follow them in a managed profile.', note: 'On Azure Virtual Desktop, session hosts are created and removed with demand.', aside: 'Think of a hotel room: reset for the next guest. Your luggage is already in it.', check: 'Ask us to show you a sign-in.', truth: ['BP §4.6'] },
-    { id: 'passthrough', title: 'Passthrough, no markup', question: 'What are we actually paying for?', answer: 'Azure, at exactly what your subscription shows.', body: 'Your Azure subscription sits in your own tenant, and you pay exactly the amount shown on it. Microsoft 365 licenses pass through the same way. What you pay us for is running it: one price per user, per month.', note: '', aside: 'It’s a sentence worth asking any provider to put in writing.', check: 'Open your Azure subscription and compare.', truth: ['BP §8.4', 'BP §8.5', 'BP §5.1'] },
-    { id: 'certified', title: 'Certified, and exact about it', question: 'What can you prove about yourselves?', answer: 'ISO/IEC 27001:2022, certified', body: 'by an accredited certification body. The scope names Safe Workspace. Holding a certification and supporting yours are different statements. We keep them apart.', note: '', aside: '', check: 'The certificate details and how to verify them are on the Trust Center.', truth: ['BP §10.1', 'BP §10.2'] },
+    { id: 'passthrough', title: 'Passthrough, no markup', question: 'What does it cost?', answer: 'Azure, at exactly what your subscription shows.', body: 'Your Azure subscription sits in your own tenant, and you pay exactly the amount shown on it. Microsoft 365 licenses pass through the same way. What you pay us for is running it: one price per user, per month.', note: '', aside: 'It’s a sentence worth asking any provider to put in writing.', check: 'Open your Azure subscription and compare.', truth: ['BP §8.4', 'BP §8.5', 'BP §5.1'] },
   ],
   hold: 'ISO/IEC 27001:2022',
   support: [
@@ -117,14 +117,6 @@ export const who = {
   ink: 'defend their decisions',
   sub: 'To a regulator. To an auditor. To a board. To the client you just won.',
   truth: ['BP §1.4', 'BP §2.1', 'BP §2.2'],
-  isThisYou: [
-    'You hold information that has to be protected: a client’s, a patient’s, an investor’s.',
-    'Someone asks you to account for it, or soon will.',
-    'Your people work from wherever they are, on whatever they have.',
-    'You’d rather have one accountable partner than six vendors.',
-    'You want a cost you can predict and a scope you can read.',
-    'You have 50 people or more.',
-  ],
   doors: [
     { id: 'financial-services', name: 'Financial services', line: 'For firms that answer to a regulator, and to clients who read the fine print.', sub: 'A published baseline, a written scope, and a clear account of who can reach your tenant.', light: 'noon', truth: ['BP §4.4', 'BP §4.2', 'BP §4.3'] },
     { id: 'healthcare', name: 'Healthcare', line: 'Patient information stays in the workspace, not on the device.', sub: 'Non-persistent desktops, and controls that support HIPAA and HITRUST.', light: 'morning', truth: ['BP §2.4', 'BP §4.6', 'BP §5.1'] },
@@ -136,6 +128,8 @@ export const who = {
 };
 
 export const since = {
+  line: 'We have been answering these questions since 1998.',
+  link: 'Our story',
   heading: 'of running IT.',
   ink: 'in the cloud',
   intro: 'Safe Workspace wasn’t designed in a quarter. Each part of it is something we learned by running desktops for clients, one era at a time.',
@@ -155,7 +149,21 @@ export const start = {
   ink: 'hard question',
   after: 'first.',
   sub: 'The one your auditor, your board or your biggest client would ask. We’ll answer it in writing.',
-  how: 'It starts with an assessment, not a pitch: a conversation and a qualification report, free for every qualified organization. Then we build your workspace as a project, scoped and quoted in writing. Then we run it.',
+  how: 'It starts with an assessment, not a pitch. Eight questions show where your workspace stands. A conversation takes it from there.',
   signoff: 'Answered in advance.',
   truth: ['BP §6.4', 'BP §6.2', 'BP §3.2'],
+};
+
+export const projects = {
+  heading: 'Built as a project.',
+  ink: 'Changed as one',
+  body: 'Building your workspace is a project: scoped, quoted in writing and finished. So is every change after it.',
+  steps: [
+    { name: 'Review', body: 'We review your environment with you, on a regular schedule.', truth: ['BP §6.2'] },
+    { name: 'Plan', body: 'Scope, timeline and price, in one document.', truth: ['BP §6.2'] },
+    { name: 'Approve', body: 'You sign before work begins.', truth: ['BP §6.2', 'BP §4.2'] },
+    { name: 'Deliver', body: 'We build it, then support it inside the Managed Scope.', truth: ['BP §6.2', 'BP §4.2'] },
+  ],
+  reach: 'Projects reach as far as the workspace does: moving you onto the platform, building it and its security, closing compliance gaps, and planning for the unexpected.',
+  truth: ['BP §3.2', 'BP §6.2'],
 };

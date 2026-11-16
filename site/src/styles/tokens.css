@@ -59,8 +59,8 @@
   --t-question: clamp(1.25rem, 1.1rem + 0.9vw, 1.75rem);
   --t-lede: clamp(1.1875rem, 1.1rem + 0.5vw, 1.5rem);
   --t-body: 1.0625rem;
-  --t-small: 0.9375rem;
-  --t-label: 0.8125rem;
+  --t-small: 1rem;
+  --t-label: 0.875rem;
 
   /* Space */
   --s-1: 4px; --s-2: 8px; --s-3: 12px; --s-4: 16px; --s-5: 24px; --s-6: 32px;
@@ -68,7 +68,7 @@
   --margin: clamp(20px, 5vw, 88px);
   --gutter: clamp(16px, 2vw, 32px);
   --max: 1360px;
-  --section: clamp(88px, 10vw, 168px);
+  --section: clamp(72px, 7.5vw, 128px);
 
   /* Shape and depth */
   --r-window: clamp(16px, 2vw, 28px);

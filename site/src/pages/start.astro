@@ -1,37 +1,143 @@
 ---
 import Base from '../layouts/Base.astro';
 import PageHero from '../components/PageHero.astro';
+import Photo from '../components/Photo.astro';
 import '../styles/home.css';
 import '../styles/pages.css';
 import { startPage as c } from '../content/pages';
+
+// The scheduling page lives in Trisian's own Microsoft 365 (Microsoft Bookings).
+// Paste its public address here when it exists; until then the page offers email.
+const bookingUrl = '';
+const mail = 'mailto:contact@trisian.com?subject=A%20first%20conversation%20about%20Safe%20Workspace';
 ---
 <Base title={c.title} description={c.description} current="start">
-  <PageHero eyebrow="Start with an assessment" lines={c.lines} ink={c.ink} after={c.after} lede={c.lede} statement />
+  <PageHero eyebrow="Request your assessment" lines={c.lines} ink={c.ink} after={c.after} lede={c.lede}>
+    <Photo slot="beat-dawn" sizes="(min-width: 901px) 42vw, 100vw" eager />
+  </PageHero>
 
-  <section class="band" data-ground="gold" aria-labelledby="how-h">
+  <section class="band" data-ground="gold" aria-labelledby="paths-h">
+    <div class="wrap">
+      <h2 class="sr-only" id="paths-h">Two ways to begin</h2>
+      <ul class="paths">
+        {c.paths.map((path) => (
+          <li>
+            <h3 class="t-h2">{path.name}</h3>
+            <p class="t-lede">{path.body}</p>
+            <p><a class="btn" href={`#${path.id}`} data-track={path.id === 'assessment' ? 'Assessment started' : 'Conversation chosen'}>{path.action} <span class="arrow" aria-hidden="true">↓</span></a></p>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <section class="band" id="assessment" data-ground="morning" aria-labelledby="assessment-h">
     <div class="wrap band__grid">
-      <div class="band__head"><h2 class="t-h2" id="how-h">It starts with an assessment, <span class="ink">not a pitch</span>.</h2></div>
+      <div class="band__head">
+        <h2 class="t-h2" id="assessment-h">Eight questions. <span class="ink">How many can you answer today?</span></h2>
+        <p class="t-small">Nothing you choose here leaves your browser.</p>
+      </div>
+      <div class="band__body">
+        <form class="quiz" data-quiz>
+          {c.questions.map((item, i) => (
+            <fieldset data-pillar={item.pillar}>
+              <legend>{item.q}</legend>
+              <div class="switch">
+                {c.options.map((option, k) => (
+                  <label><input type="radio" name={`q${i}`} value={String(k)} required /><span>{option}</span></label>
+                ))}
+              </div>
+            </fieldset>
+          ))}
+          <div class="quiz__foot">
+            <button type="submit" class="btn">See where you stand</button>
+            <p class="t-small" data-quiz-note aria-live="polite"></p>
+          </div>
+        </form>
+        <noscript><p class="t-small">The result needs scripts turned on. You can also send us your answers at contact@trisian.com.</p></noscript>
+        <div class="quiz__result" data-quiz-result hidden tabindex="-1">
+          <p class="t-label">{c.result.heading}</p>
+          <p class="quiz__score" data-quiz-score></p>
+          <ul class="quiz__pillars" data-quiz-pillars></ul>
+          <p class="t-lede">{c.result.close}</p>
+          <p><a class="btn" href="#talk" data-track="Assessment reviewed">{c.result.action} <span class="arrow" aria-hidden="true">↓</span></a></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="band" id="talk" data-ground="morning" aria-labelledby="talk-h">
+    <div class="wrap band__grid">
+      <div class="band__head"><h2 class="t-h2" id="talk-h">A first conversation</h2></div>
+      <div class="band__body">
+        <div class="booking">
+          {bookingUrl ? (
+            <>
+              <p class="t-lede">Choose a time that works for you. We’ll ask your name, work email, company, how many people you have, and what you need answered.</p>
+              <p><a class="btn" href={bookingUrl} rel="noopener" data-track="Conversation booked">Choose a time <span class="arrow" aria-hidden="true">→</span></a></p>
+            </>
+          ) : (
+            <>
+              <p class="t-lede">Email us your company name, how many people you have, and what you need answered. We read everything and reply ourselves.</p>
+              <p><a class="btn" href={mail} data-track="Conversation emailed">contact@trisian.com <span class="arrow" aria-hidden="true">→</span></a></p>
+            </>
+          )}
+        </div>
+        <ul class="routes">
+          <li><p class="t-label">A security question</p><p><a class="link" href="mailto:security@trisian.com">security@trisian.com</a></p></li>
+          <li><p class="t-label">Our security documents</p><p><a class="link" href="https://trust.trisian.com" rel="noopener">trust.trisian.com</a></p></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="band" data-ground="gold" aria-labelledby="next-h" style="padding-bottom: var(--section)">
+    <div class="wrap band__grid">
+      <div class="band__head"><h2 class="t-h2" id="next-h">What comes next</h2></div>
       <div class="band__body">
         <ul class="invoice">
-          {c.phases.map((p) => <li><strong>{p.name}</strong><span>{p.body}</span></li>)}
+          {c.next.map((step) => <li><strong>{step.name}</strong><span>{step.body}</span></li>)}
         </ul>
         <p class="t-small">{c.minimum}</p>
       </div>
     </div>
   </section>
 
-  <!-- The enquiry form is added when its endpoint exists (inside Trisian's own tenant). Until then: real routes only. -->
-  <section class="band" data-ground="gold" aria-labelledby="routes-h" style="padding-bottom: var(--section)">
-    <div class="wrap band__grid">
-      <div class="band__head"><h2 class="t-h2" id="routes-h">Write to us</h2></div>
-      <div class="band__body">
-        <ul class="routes">
-          <li><p class="t-label">To begin</p><p><a class="link" href="mailto:contact@trisian.com?subject=Starting%20with%20an%20assessment">contact@trisian.com</a></p></li>
-          <li><p class="t-label">A security question</p><p><a class="link" href="mailto:security@trisian.com">security@trisian.com</a></p></li>
-          <li><p class="t-label">Our security documents</p><p><a class="link" href="https://trust.trisian.com" rel="noopener">trust.trisian.com</a></p></li>
-        </ul>
-        <p class="t-small">Tell us roughly how many people you have and what you answer to. We read everything and reply ourselves.</p>
-      </div>
-    </div>
-  </section>
+  <script>
+    // The eight questions: counted in the browser, sent nowhere.
+    const form = document.querySelector<HTMLFormElement>('[data-quiz]');
+    const result = document.querySelector<HTMLElement>('[data-quiz-result]');
+    const note = document.querySelector<HTMLElement>('[data-quiz-note]');
+    form?.addEventListener('submit', (event) => {
+      event.preventDefault();
+      const sets = Array.from(form.querySelectorAll<HTMLFieldSetElement>('fieldset'));
+      const answers = sets.map((set) => set.querySelector<HTMLInputElement>('input:checked')?.value);
+      const missing = answers.filter((a) => a === undefined).length;
+      if (missing) { if (note) note.textContent = `${missing} still to answer.`; return; }
+      if (note) note.textContent = '';
+      const shown = answers.filter((a) => a === '0').length;
+      const probably = answers.filter((a) => a === '1').length;
+      const score = document.querySelector<HTMLElement>('[data-quiz-score]');
+      if (score) {
+        score.textContent = '';
+        const b = document.createElement('b'); b.textContent = `${shown} of ${sets.length}`;
+        const tail = probably ? ` ${probably} ${probably === 1 ? 'is' : 'are'} a probably.` : '';
+        score.append('You can show ', b, `.${tail}`);
+      }
+      const list = document.querySelector<HTMLElement>('[data-quiz-pillars]');
+      if (list) {
+        list.textContent = '';
+        for (const pillar of ['Security', 'Performance', 'Compliance']) {
+          const mine = sets.map((set, i) => ({ set, a: answers[i] })).filter((x) => x.set.dataset.pillar === pillar);
+          const li = document.createElement('li');
+          const name = document.createElement('span'); name.className = 't-label'; name.textContent = pillar;
+          const line = document.createElement('span');
+          line.textContent = `${mine.filter((x) => x.a === '0').length} of ${mine.length} answered`;
+          li.append(name, line); list.append(li);
+        }
+      }
+      (window as any).trisianTrack?.('Assessment completed'); // the answers themselves are never sent
+      if (result) { result.hidden = false; result.focus(); result.scrollIntoView({ behavior: 'smooth', block: 'center' }); }
+    });
+  </script>
 </Base>

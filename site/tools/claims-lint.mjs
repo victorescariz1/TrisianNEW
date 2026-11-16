@@ -7,7 +7,7 @@ const dist = path.resolve('dist');
 const banned = [
   [/\b\d{2,3}(\.\d+)?\s?%\s*(uptime|availability)|\buptime\b|zero[- ]downtime|\balways[- ]on\b|\buninterrupted\b/i, 'availability claim'],
   [/\bnightly\b|every night|wiped? at midnight/i, 'desktops are not reset nightly: sessions end at sign-out'],
-  [/\bat cost\b|makes? nothing|zero[- ]margin/i, 'say "passed through, no markup"'],
+  [/\bat cost\b|makes? nothing|zero[- ]margin/i, 'say "Passthrough, no markup."'],
   [/HIPAA[- ]compliant|SOC ?2[- ]certified|keeps? you compliant|guarantee[sd]? compliance|\bBAA\b/i, 'compliance claim'],
   [/managed detection|\bMDR\b|threat hunting|\bour SOC\b/i, 'not a service on offer'],
   [/\b\d[\d,]*\+?\s+(clients|customers)\b/i, 'client count'],
@@ -18,6 +18,18 @@ const banned = [
   [/\bExpressRoute\b/i, 'say "a private connection"'],
   [/Azure Virtual Desktop or (on )?Citrix/i, 'Azure Virtual Desktop leads; Citrix is not presented as an equal'],
   [/PHOTO PENDING|lorem ipsum|TODO|TBD/i, 'placeholder text'],
+  // Session mechanics are described by their result, never by how the session is reset.
+  [/sign-?out ends|starts? (fresh|clean)|re-?imag(e|ing)|hotel room|\bephemeral\b|refreshed every/i, 'say "non-persistent desktops"'],
+  [/is included|are included|\bincluded (in|with)\b/i, 'say "comes with" (license features) or "in the fee" (our services)'],
+  [/passed through|zero markup|full visibility/i, 'say "Passthrough, no markup."'],
+  [/\boperator\b|total responsibility|full ownership|single accountable/i, 'say "one accountable partner"'],
+  [/Citrix partner|Citrix[- ]certified/i, 'no Citrix partnership or certification is claimed'],
+  [/around the clock|round the clock|24\/7 (support|resilience)/i, '24/7 is only for incidents covered by people; monitoring is "24x7 automated platform monitoring"'],
+  [/SOC ?2 (in progress|compliant)|audit[- ]ready|certification preparation/i, 'frameworks are supported, not held'],
+  [/\bVanta\b|ControlUp|Mimecast|Pulseway|\bVeeam\b|\bNerdio\b|HaloPSA/i, 'name the capability, not the tool'],
+  [/\bSMBs?\b|small and mid-?size|businesses of all sizes|unlimited users/i, 'say "from 50 users"'],
+  [/—/, 'no long dashes: use a comma, a period or a colon'],
+  [/In business since 1998|^Since 1998/im, 'say "Founded in 1998", inside a sentence'],
 ];
 
 const pages = [];
