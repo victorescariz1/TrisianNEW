@@ -158,7 +158,7 @@ export const start = {
 
 export const projects = {
   heading: 'Built as a project.',
-  ink: 'Changed as one',
+  ink: 'Changed the same way',
   body: 'Building your workspace is a project: scoped, quoted in writing and finished. So is every change after it.',
   steps: [
     { name: 'Review', body: 'We review your environment with you, on a regular schedule.', truth: ['BP §6.2'] },

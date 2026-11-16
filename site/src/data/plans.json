@@ -10,8 +10,7 @@
     "One standard image, centrally managed",
     "A published security baseline, kept free of drift",
     "Automated patching and scaling",
-    "24x7 automated platform monitoring",
-    "One point of contact, and one owner for every issue"
+    "24x7 automated platform monitoring"
   ],
   "plans": [
     {

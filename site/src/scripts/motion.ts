@@ -139,18 +139,19 @@ $$<HTMLElement>('[data-explorer]').forEach((ex) => {
 /* ── Since 1998: the year follows the era in view ──────────────────────── */
 const eras = $<HTMLElement>('[data-eras]');
 const year = $<HTMLElement>('[data-year]');
-if (eras && year && 'IntersectionObserver' in window) {
-  const io = new IntersectionObserver((entries) => {
-    for (const e of entries) {
-      if (!e.isIntersecting) continue;
-      const next = ((e.target as HTMLElement).dataset.eraYear || '').slice(0, 4);
-      const span = year.firstElementChild as HTMLElement | null;
-      if (!span || span.textContent === next) continue;
-      span.textContent = next;
-      year.classList.remove('is-rolling'); void year.offsetWidth; year.classList.add('is-rolling');
-    }
-  }, { root: eras, rootMargin: '0px -55% 0px 0px', threshold: 0.5 });
-  $$<HTMLElement>('[data-era-year]', eras).forEach((el) => io.observe(el));
+if (eras && year) {
+  // The year follows how far the row has been scrolled, so the last era is reached on any screen width.
+  const items = $$<HTMLElement>('[data-era-year]', eras);
+  const follow = () => {
+    const room = eras.scrollWidth - eras.clientWidth;
+    const at = room > 0 ? Math.round((eras.scrollLeft / room) * (items.length - 1)) : 0;
+    const next = (items[Math.min(items.length - 1, Math.max(0, at))]?.dataset.eraYear || '').slice(0, 4);
+    const span = year.firstElementChild as HTMLElement | null;
+    if (!span || !next || span.textContent === next) return;
+    span.textContent = next;
+    year.classList.remove('is-rolling'); void year.offsetWidth; year.classList.add('is-rolling');
+  };
+  eras.addEventListener('scroll', follow, { passive: true });
 }
 
 /* ── Pause motion: one control, remembered ─────────────────────────────── */
