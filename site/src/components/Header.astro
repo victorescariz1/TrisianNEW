@@ -4,6 +4,7 @@ interface Props { current?: string; }
 const { current = '' } = Astro.props;
 const nav = [
   { href: url('safe-workspace'), label: 'Safe Workspace', id: 'safe-workspace' },
+  { href: url('projects'), label: 'Projects', id: 'projects' },
   { href: url('plans'), label: 'Plans', id: 'plans' },
   { href: url('who-its-for'), label: 'Who it’s for', id: 'who-its-for' },
   { href: url('trust'), label: 'Trust', id: 'trust' },

@@ -20,21 +20,21 @@ import { proof } from '../content/home';
             <div class="qa__answer">
               <p class="t-h2"><span class="ink">{q.answer}</span></p>
               <p class="t-lede measure">{q.body}</p>
-              {i === 1 && (
-                <>
-                  <table class="hold">
-                    <caption class="sr-only">What Trisian holds, and what its controls support</caption>
-                    <tbody>
-                      <tr><th scope="row" class="t-label">We hold</th><td class="t-h3">{proof.hold}</td></tr>
-                      {proof.support.map((s, k) => (
-                        <tr><th scope="row" class="t-label">{k === 0 ? 'Our controls support your obligations under' : ''}</th><td><span class="t-label">{s.plan}</span><span class="t-h3">{s.frameworks.join(' · ')}</span></td></tr>
-                      ))}
-                    </tbody>
-                  </table>
-                  <p class="t-small measure">{proof.qualifier}</p>
-                </>
-              )}
             </div>
+            {i === 1 && (
+              <>
+                <table class="hold">
+                  <caption class="sr-only">What Trisian holds, and what its controls support</caption>
+                  <tbody>
+                    <tr><th scope="row" class="t-label">We hold</th><td class="t-h3">{proof.hold}</td></tr>
+                    {proof.support.map((s, k) => (
+                      <tr><th scope="row" class="t-label">{k === 0 ? 'Our controls support your obligations under' : ''}</th><td><span class="t-label">{s.plan}</span><span class="t-h3">{s.frameworks.join(' · ')}</span></td></tr>
+                    ))}
+                  </tbody>
+                </table>
+                <p class="t-small measure hold__note">{proof.qualifier}</p>
+              </>
+            )}
           </li>
         ))}
       </ul>
@@ -42,10 +42,10 @@ import { proof } from '../content/home';
   </section>
 
   <section class="band" data-ground="noon" aria-labelledby="center-h">
-    <div class="wrap">
-      <p class="mission" id="center-h">{c.closing}</p>
-      <p class="t-lede measure" style="margin-block: var(--s-6)">The certificate details, our policies, our controls and our subprocessors are on the Trust Center. Some documents are public; others are shared on request, under a non-disclosure agreement.</p>
-      <a class="btn" href="https://trust.trisian.com" rel="noopener">Go to the Trust Center <span class="arrow" aria-hidden="true">→</span></a>
+    <div class="wrap band__grid claim">
+      <p class="mission claim__line" id="center-h">{c.closing}</p>
+      <p class="t-lede claim__more">The certificate details, our policies, our controls and our subprocessors are on the Trust Center. Some documents are public; others are shared on request, under a non-disclosure agreement.</p>
+      <p class="claim__go"><a class="btn" href="https://trust.trisian.com" rel="noopener">Go to the Trust Center <span class="arrow" aria-hidden="true">→</span></a></p>
     </div>
   </section>
 

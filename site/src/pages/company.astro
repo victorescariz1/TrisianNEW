@@ -15,12 +15,11 @@ import { since } from '../content/home';
 
   <section class="since" data-ground="morning" aria-labelledby="story-h" style="padding-bottom: var(--s-9)">
     <div class="wrap">
-      <p class="since__year t-statement" aria-hidden="true" data-year><span>1998</span></p>
       <h2 class="t-h2" id="story-h">{since.intro}</h2>
     </div>
-    <div class="eras" role="region" aria-label="The company, era by era" tabindex="0" data-eras>
+    <div class="eras" role="region" aria-label="The company, era by era" tabindex="0">
       {since.eras.map((era) => (
-        <article class="era" data-era-year={era.year}>
+        <article class="era">
           <p class="era__year">{era.year}</p>
           {erasReady && (
             <div class="era__desk">
@@ -47,10 +46,11 @@ import { since } from '../content/home';
   </section>
 
   <section class="band" data-ground="morning" aria-labelledby="people-h">
-    <div class="wrap band__grid">
-      <div class="band__head"><h2 class="t-h2" id="people-h">How we work</h2></div>
+    <div class="wrap band__grid ownway">
+      <div class="band__head"><p class="t-question">{c.work.question}</p></div>
       <div class="band__body">
-        <p class="t-lede">{c.people}</p>
+        <h2 class="t-h2 ownway__line" id="people-h">{c.work.lead} <span class="ink">{c.work.ink}</span>.</h2>
+        <p class="t-lede">{c.work.body}</p>
         <p class="t-lede">{c.oneBrand}</p>
       </div>
     </div>

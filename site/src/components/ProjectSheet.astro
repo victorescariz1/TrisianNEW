@@ -1,0 +1,49 @@
+---
+// A project, in writing: the things agreed before any work begins, drawn as one sheet. It is the sibling of
+// the monthly invoice. No amounts and no dates are shown: only what is always on the page.
+import { projectsPage } from '../content/pages';
+interface Props { class?: string; }
+const { class: cls = '' } = Astro.props;
+const sheet = projectsPage.sheet;
+const id = `sheet-${Math.random().toString(36).slice(2, 8)}`;
+---
+<figure class:list={['sheet-fig', cls]} aria-labelledby={id}>
+  <div class="psheet">
+    <p class="t-label psheet__title" id={id}>{sheet.title}</p>
+    <p class="t-label psheet__group">{sheet.group}</p>
+    <ul class="psheet__rows">
+      {sheet.items.map((item, k) => (
+        <li style={`--k:${k}`}><span class="psheet__name">{item.name}</span><span class="psheet__what">{item.what}</span></li>
+      ))}
+    </ul>
+    <p class="psheet__price"><span>{sheet.price.label}</span><strong>{sheet.price.value}</strong></p>
+  </div>
+</figure>
+
+<style>
+  .sheet-fig { --pad: clamp(20px, 2.4vw, 32px); margin: 0; container-type: inline-size; }
+  .psheet { background: var(--ground-noon); color: var(--ink); border-radius: var(--r-inset); box-shadow: var(--shadow-sheet); padding: var(--pad); padding-top: calc(var(--pad) - 4px); }
+  .psheet__title { color: var(--ink-2); padding-bottom: var(--s-4); border-bottom: 1.5px solid var(--ink); }
+  .psheet__group { color: var(--ink-3); margin-top: var(--s-5); margin-bottom: var(--s-2); }
+  .psheet__rows { list-style: none; margin: 0; padding: 0; }
+  .psheet__rows li { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); column-gap: var(--s-5); align-items: baseline; padding-block: 11px; border-top: 1px solid var(--rule); }
+  .psheet__rows li:first-child { border-top: 0; }
+  .psheet__name { font-weight: 500; letter-spacing: -.01em; }
+  .psheet__what { font-size: var(--t-small); line-height: 1.45; color: var(--ink-2); }
+  /* The last line is the one a buyer looks for, so it is set apart, on the tint, in the accent. */
+  .psheet__price { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); column-gap: var(--s-5); align-items: baseline; margin: var(--s-4) calc(-1 * var(--pad)) calc(-1 * var(--pad)); padding: var(--s-5) var(--pad); background: var(--tint-1); border-radius: 0 0 var(--r-inset) var(--r-inset); }
+  .psheet__price span { font-weight: 500; color: var(--cobalt-deep); }
+  .psheet__price strong { font-size: var(--t-h3); font-weight: 600; letter-spacing: -.02em; line-height: 1.15; color: var(--cobalt); }
+
+  @container (max-width: 400px) {
+    .psheet__rows li, .psheet__price { grid-template-columns: minmax(0, 1fr); row-gap: 2px; }
+  }
+
+  /* The sheet is there first; then its lines are written in, top to bottom, once. */
+  @media (prefers-reduced-motion: no-preference) {
+    :global(.js [data-enter]:not(.is-in)) .psheet__rows li { opacity: 0; transform: translateY(8px); }
+    :global(.js [data-enter].is-in) .psheet__rows li { opacity: 1; transform: none; transition: transform var(--d-3) var(--ease) calc(var(--k, 0) * 110ms + 420ms), opacity var(--d-2) var(--ease) calc(var(--k, 0) * 110ms + 420ms); }
+    :global(.js [data-enter]:not(.is-in)) .psheet__price { opacity: 0; }
+    :global(.js [data-enter].is-in) .psheet__price { opacity: 1; transition: opacity var(--d-3) var(--ease) 1100ms; }
+  }
+</style>

@@ -7,7 +7,7 @@
 .page-hero--figure .page-hero__text { grid-column: 1 / span 7; }
 .page-hero__figure { grid-column: 8 / -1; }
 .page-hero__lede { max-width: 34em; }
-@media (max-width: 900px) { .page-hero--figure .page-hero__text, .page-hero__figure { grid-column: 1 / -1; } .page-hero { padding-top: 104px; } }
+@media (max-width: 900px) { .page-hero--figure .page-hero__text, .page-hero__figure { grid-column: 1 / -1; } .page-hero { padding-top: 104px; padding-bottom: var(--s-7); } }
 
 /* ── A band of prose with a heading to its left ───────────────────────── */
 .band { padding-block: var(--s-9); }
@@ -17,6 +17,26 @@
 .band__body { grid-column: 6 / -1; display: grid; gap: var(--s-5); }
 .band__wide { grid-column: 1 / -1; }
 @media (max-width: 900px) { .band__head, .band__body { grid-column: 1 / -1; } }
+/* A closing claim: the claim and its button on the left, what backs it on the right. Set as one left-hand
+   column it left the right third of the band blank. */
+.claim { grid-template-rows: auto auto; row-gap: var(--s-6); }
+.claim__line { grid-column: 1 / span 7; grid-row: 1; max-width: none; }
+.claim__go { grid-column: 1 / span 7; grid-row: 2; }
+.claim__more { grid-column: 9 / -1; grid-row: 1 / span 2; align-self: start; }
+@media (max-width: 900px) {
+  .claim { grid-template-rows: none; }
+  .claim__line, .claim__more, .claim__go { grid-column: 1 / -1; grid-row: auto; }
+}
+/* A tall thing on the right (the invoice) and, under the heading on the left, a second smaller block that
+   rests on the same bottom line. The left column is used instead of standing blank beside the tall thing. */
+.band__grid--aside { grid-template-rows: auto 1fr; }
+.band__grid--aside .band__head { grid-row: 1; }
+.band__grid--aside .band__body { grid-row: 1 / span 2; }
+.band__aside { grid-column: 1 / span 4; grid-row: 2; align-self: end; display: grid; gap: var(--s-4); }
+@media (max-width: 900px) {
+  .band__grid--aside { grid-template-rows: none; }
+  .band__grid--aside .band__head, .band__grid--aside .band__body, .band__aside { grid-column: 1 / -1; grid-row: auto; }
+}
 
 /* ── The six parts, as a ruled list ───────────────────────────────────── */
 .parts { counter-reset: none; }
@@ -42,16 +62,147 @@
 .qa .t-question { grid-column: 1 / span 4; }
 .qa .qa__answer { grid-column: 6 / -1; display: grid; gap: var(--s-4); }
 @media (max-width: 900px) { .qa .t-question, .qa .qa__answer { grid-column: 1 / -1; } }
+/* A table under an answer takes the full row. Its labels fall in the question's column and its values start
+   where the answers start (five columns and five gutters in: 42.6% of the row), so nothing stands blank
+   beside it. */
+.qa > li > .hold { grid-column: 1 / -1; width: 100%; margin-top: var(--s-5); }
+.qa > li > .hold__note { grid-column: 6 / -1; }
+@media (min-width: 901px) { .qa > li > .hold th { width: 42.6%; } }
+@media (max-width: 900px) { .qa > li > .hold__note { grid-column: 1 / -1; } }
 
 /* ── Where it lives: your tenant, your datacenter, one private connection ─ */
-.where { display: grid; grid-template-columns: 1.4fr auto 1fr; align-items: center; gap: 0; margin-block: var(--s-7) var(--s-4); max-width: 880px; }
-.where__box { padding: var(--s-6); border-radius: var(--r-window); display: grid; gap: var(--s-3); min-height: 180px; align-content: space-between; }
-.where__box--azure { background: var(--tint-1); box-shadow: inset 0 0 0 1.5px var(--cobalt); }
-.where__box--dc { box-shadow: inset 0 0 0 1.5px var(--control-border); }
-.where__box p:first-child { font-size: var(--t-h3); font-weight: 500; letter-spacing: -.02em; }
-.where__link { position: relative; width: clamp(80px, 12vw, 180px); text-align: center; font-size: var(--t-label); font-weight: 500; color: var(--fg-2); padding-bottom: 14px; }
-.where__link::after { content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: 1.5px; background: var(--cobalt); }
-@media (max-width: 700px) { .where { grid-template-columns: 1fr; } .where__link { width: auto; padding: 22px 0; display: grid; justify-items: center; } .where__link::after { left: 50%; right: auto; top: 0; bottom: 0; width: 1.5px; height: auto; z-index: 0; } .where__link { isolation: isolate; } .where__link::before { content: ''; position: absolute; inset: 14px 20% 14px 20%; background: var(--ground); z-index: 1; } .where__link { position: relative; } }
+/* One picture, two places, both yours. Above: your Azure tenant, with the desktop your people sign in to.
+   Below: the ground your datacenter stands on, with the cabinets you already run. One cobalt line joins the
+   desktop to a cabinet. It is drawn once when the figure comes into view, and the cabinets' lights come on
+   as it arrives; with no script, or with reduced motion, the finished picture is simply there.
+   The picture takes the full width of its row, under the question and its answer: beside the answer it left
+   the whole question column blank for its own height. It has five sizes, chosen by its own width. */
+.where { container-type: inline-size; margin-block: var(--s-7) var(--s-4); border-radius: var(--r-window); overflow: hidden; background: var(--tint-1); }
+.qa > li > .where { grid-column: 1 / -1; margin-block: var(--s-6) 0; }
+.where__scene {
+  --pad: clamp(20px, 4.4cqi, 32px); --desk: clamp(230px, 42cqi, 300px); --floor: 44px;
+  --rack-w: 120px; --unit: 26px; --unit-gap: 6px; --rack-pad: 8px; --rack-gap: 12px; --racks: 190px;
+  /* A cabinet's height; and how far below the desktop's bottom edge the cabinets stand, so that the line,
+     which leaves the desktop at its middle, arrives at the middle of a cabinet's top unit. */
+  --rack-h: calc(6 * var(--unit) + 5 * var(--unit-gap) + 2 * var(--rack-pad));
+  --drop: calc(var(--rack-h) - var(--rack-pad) - var(--unit) / 2 - 3px - .3125 * var(--desk));
+  display: grid; grid-template-columns: var(--pad) var(--desk) minmax(132px, 1fr) var(--racks);
+}
+.where__sky { grid-column: 2 / -1; grid-row: 1; display: grid; gap: 4px; padding-block: var(--pad) var(--s-5); padding-right: var(--pad); }
+.where__name { font-size: clamp(1.125rem, 1.55vw, 1.375rem); font-weight: 500; letter-spacing: -.015em; line-height: 1.2; }
+.where__desk { grid-column: 2; grid-row: 2; min-width: 0; }
+.where__desk .pw { box-shadow: var(--shadow-window); }
+.where__desk .pw * { animation: none !important; }
+/* The connection: a cobalt line from the desktop's edge to the cabinet's edge, with a round end on each. */
+.where__link { grid-column: 3; grid-row: 2; align-self: center; position: relative; z-index: 2; height: 10px; font-size: var(--t-label); font-weight: 500; line-height: 1.3; color: var(--fg-2); }
+.where__wire { position: absolute; inset: 4px 0; background: var(--cobalt); }
+.where__link::before, .where__link::after { content: ''; position: absolute; top: 0; width: 10px; height: 10px; border-radius: 50%; background: var(--cobalt); }
+.where__link::before { left: -5px; }
+.where__link::after { right: -5px; }
+.where__link span { position: absolute; left: 0; right: 0; bottom: calc(100% + 8px); text-align: center; white-space: nowrap; }
+/* The cabinets, drawn the way the desktop is drawn: a white case, units, a light on each. The row runs off
+   the picture's edge, because a datacenter does not end at one cabinet. */
+.where__racks { grid-column: 4; grid-row: 2; align-self: end; position: relative; z-index: 1; display: flex; gap: var(--rack-gap); margin-bottom: calc(-1 * var(--drop)); }
+.rack { flex: none; width: var(--rack-w); display: grid; gap: var(--unit-gap); padding: var(--rack-pad); border-radius: 12px; background: #fff; box-shadow: var(--shadow-sheet); }
+.rack i { position: relative; height: var(--unit); border-radius: 5px; background: #EFF1F8; box-shadow: inset 0 0 0 1px #DDE1EE; }
+.rack i::before, .rack b { content: ''; position: absolute; left: 9px; top: 50%; width: 6px; height: 6px; margin-top: -3px; border-radius: 2px; }
+.rack i::before { background: #C9D2EA; box-shadow: 10px 0 0 #C9D2EA; }
+.rack b { background: var(--cobalt); }
+.rack i::after { content: ''; position: absolute; right: 9px; top: 8px; bottom: 8px; width: 32px; background: repeating-linear-gradient(90deg, #C3C9DB 0 2px, transparent 2px 5px); }
+.where__ground { grid-column: 1 / -1; grid-row: 3; margin-top: calc(var(--drop) - var(--floor)); display: grid; gap: 2px; padding: 18px var(--pad) 22px; background: var(--ground-gold); box-shadow: inset 0 1px 0 color-mix(in srgb, var(--ink) 9%, transparent); }
+/* Wider: a larger desktop, and more of the row of cabinets. */
+@container (min-width: 800px) {
+  .where__scene { --desk: clamp(300px, 36cqi, 360px); --floor: 40px; --racks: 324px; }
+}
+@container (min-width: 980px) {
+  .where__scene { --racks: 456px; }
+}
+/* Widest (the full row on a desktop screen): everything a size up. */
+@container (min-width: 1140px) {
+  .where__scene { --pad: 40px; --desk: clamp(414px, 36cqi, 480px); --floor: 44px; --rack-w: 150px; --unit: 32px; --unit-gap: 7px; --rack-pad: 10px; --rack-gap: 14px; --racks: 552px; }
+  .where__name { font-size: 1.5rem; }
+  .where__link { font-size: var(--t-small); }
+  .rack { border-radius: 14px; }
+  .rack i { border-radius: 6px; }
+  .rack i::before, .rack b { left: 11px; width: 7px; height: 7px; margin-top: -3.5px; }
+  .rack i::before { box-shadow: 12px 0 0 #C9D2EA; }
+  .rack i::after { right: 11px; top: 10px; bottom: 10px; width: 40px; }
+  .where__ground { padding-block: 22px 26px; }
+}
+/* A smaller picture: smaller cabinets, the same arrangement. */
+@container (max-width: 599px) {
+  .where__scene { --desk: clamp(200px, 42cqi, 252px); --floor: 40px; --rack-w: 96px; --unit: 20px; --unit-gap: 5px; --rack-pad: 7px; --rack-gap: 10px; --racks: 136px; }
+  .rack { border-radius: 10px; }
+  .rack i { border-radius: 4px; }
+  .rack i::after { width: 24px; top: 6px; bottom: 6px; }
+}
+/* A narrow picture: the desktop above, the line straight down, the cabinets in a row across the ground. */
+@container (max-width: 499px) {
+  .where__scene { grid-template-columns: var(--pad) minmax(0, 1fr) var(--pad); }
+  .where__sky { grid-column: 2; padding-right: 0; }
+  .where__desk { max-width: 400px; }
+  .where__link { grid-column: 1 / -1; grid-row: 3; justify-self: center; align-self: auto; width: 10px; height: 64px; margin-left: 106px; }
+  .where__wire { inset: 0 4px; }
+  .where__link::before, .where__link::after { left: 0; right: auto; }
+  .where__link::before { top: -5px; }
+  .where__link::after { top: auto; bottom: -5px; }
+  .where__link span { left: auto; right: calc(100% + 10px); bottom: auto; top: 50%; translate: 0 -50%; text-align: right; }
+  .where__racks { grid-column: 1 / -1; grid-row: 4; justify-self: center; align-self: auto; margin-bottom: calc(-1 * var(--floor)); }
+  .where__ground { grid-row: 5; margin-top: 0; padding-top: calc(var(--floor) + 16px); }
+}
+/* Drawn once: the line travels from the desktop to the cabinet, its end lands, the lights come on. It starts
+   when the ground, the last thing in the picture, has come into view, so the whole picture is on screen.
+   A browser that cannot ask "has the ground arrived" never hides anything: it shows the finished picture. */
+@media (prefers-reduced-motion: no-preference) {
+  .js .where__scene:has(.where__ground[data-enter]) .where__wire { clip-path: inset(0 100% 0 0); }
+  .js .where__scene:has(.where__ground[data-enter]) .where__link::after { opacity: 0; scale: .3; }
+  .js .where__scene:has(.where__ground[data-enter]) .where__link span { opacity: 0; }
+  .js .where__scene:has(.where__ground[data-enter]) .rack b { opacity: 0; }
+  .js .where__scene:has(.where__ground.is-in) .where__wire { clip-path: inset(0); transition: clip-path 900ms var(--ease) 250ms; }
+  .js .where__scene:has(.where__ground.is-in) .where__link::after { opacity: 1; scale: 1; transition: opacity var(--d-1) linear 950ms, scale var(--d-2) var(--ease) 950ms; }
+  .js .where__scene:has(.where__ground.is-in) .where__link span { opacity: 1; transition: opacity var(--d-2) var(--ease) 500ms; }
+  .js .where__scene:has(.where__ground.is-in) .rack b { opacity: 1; transition: opacity var(--d-1) linear calc(1050ms + var(--u, 0) * 70ms); }
+  /* Narrow: the line runs down, and the lights spread out from the cabinet it lands on (the third). */
+  @container (max-width: 499px) {
+    .js .where__scene:has(.where__ground[data-enter]:not(.is-in)) .where__wire { clip-path: inset(0 0 100% 0); }
+    .js .where__scene:has(.where__ground.is-in) .rack b { transition-delay: calc(1050ms + var(--n, 0) * 70ms); }
+  }
+}
+
+/* ── Projects ─────────────────────────────────────────────────────────── */
+/* The six kinds of work. Each row: the area and what it is for on the left, the projects in it on the right,
+   two to a line. The rule over each row is drawn, left to right, when the list comes into view. */
+.kinds__head { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--gutter); row-gap: var(--s-5); align-items: end; margin-bottom: var(--s-8); }
+.kinds__head .t-h1 { grid-column: 1 / span 6; }
+.kinds__head .t-lede { grid-column: 8 / -1; }
+.kinds { display: grid; }
+.kinds > li { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--gutter); row-gap: var(--s-5); padding-block: var(--s-7); background: linear-gradient(var(--fg), var(--fg)) 0 0 / calc(var(--draw, 1) * 100%) 1.5px no-repeat; }
+.kinds__area { grid-column: 1 / span 4; display: grid; gap: var(--s-3); align-content: start; }
+.kinds__note { color: var(--fg-2); padding-top: var(--s-3); border-top: 1px solid var(--rule); margin-top: var(--s-3); }
+.kinds__projects { grid-column: 6 / -1; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: var(--gutter); align-content: start; }
+.kinds__projects li { display: grid; gap: 4px; align-content: start; padding-block: var(--s-4); border-top: 1px solid var(--rule); }
+.kinds__projects li:nth-child(-n+2) { border-top: 0; padding-top: 6px; }
+.kinds__projects strong { font-weight: 500; letter-spacing: -.01em; }
+.kinds__projects span { color: var(--fg-2); }
+/* What a project builds goes inside the scope: the statement on the left, the scope's own box on the right
+   with the built things in it. They land once, as the box comes into view. */
+.handover { align-items: center; row-gap: var(--s-7); }
+.handover__text { grid-column: 1 / span 6; display: grid; gap: var(--s-5); }
+.handover__figure { grid-column: 8 / -1; }
+.handover__figure .zone { min-height: 0; padding: var(--s-6); gap: var(--s-4); }
+.handover__figure .zone ul { margin-top: var(--s-4); }
+@media (prefers-reduced-motion: no-preference) {
+  .js .handover__figure[data-enter]:not(.is-in) .zone li { animation: none; opacity: 0; }
+  .js .handover__figure[data-enter].is-in .zone li { animation: land var(--d-3) var(--ease) both; animation-delay: calc(var(--k, 0) * 140ms + 200ms); }
+}
+@media (max-width: 900px) {
+  .kinds__head .t-h1, .kinds__head .t-lede, .kinds__area, .kinds__projects, .handover__text, .handover__figure { grid-column: 1 / -1; }
+  .kinds__head { margin-bottom: var(--s-7); }
+}
+@media (max-width: 560px) {
+  .kinds__projects { grid-template-columns: minmax(0, 1fr); }
+  .kinds__projects li:nth-child(2) { border-top: 1px solid var(--rule); padding-top: var(--s-4); }
+}
 
 /* ── Before, and with ─────────────────────────────────────────────────── */
 .beforewith th, .beforewith td { text-align: left; vertical-align: top; padding: var(--s-5) var(--s-5) var(--s-5) 0; border-top: 1px solid var(--rule); }
@@ -65,6 +216,9 @@
   .beforewith thead { display: none; }
   .beforewith tbody tr { display: grid; padding-block: var(--s-4); border-top: 1.5px solid var(--fg); }
   .beforewith tbody th, .beforewith tbody td { width: auto; border: 0; padding: 3px 0; }
+  /* The desktop rule that gives this cell 30% is more specific than the line above; without this the
+     "before" text was set in a column one word wide. */
+  .beforewith tbody td:nth-child(2) { width: auto; }
   .beforewith tbody tr:first-child th, .beforewith tbody tr:first-child td { border: 0; }
   .beforewith tbody td:nth-child(2)::before { content: 'Before: '; }
 }
@@ -85,9 +239,19 @@
 .invoice { display: grid; }
 .invoice li { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr); column-gap: var(--gutter); padding-block: var(--s-4); border-top: 1px solid var(--rule); }
 .invoice li:first-child { border-top: 1.5px solid var(--fg); }
+/* In a narrow column the name sits over its line instead of beside it. */
+.invoice--stack li { grid-template-columns: minmax(0, 1fr); row-gap: 2px; }
 .invoice strong { font-weight: 500; }
 .invoice span { color: var(--fg-2); }
-@media (max-width: 800px) { .plans3 { grid-template-columns: 1fr; row-gap: var(--s-6); } .compare { display: block; overflow-x: auto; } .compare table { min-width: 620px; } }
+@media (max-width: 800px) { .plans3 { grid-template-columns: 1fr; row-gap: var(--s-6); } }
+/* On a phone the three plans stay side by side: each cell shows its mark, and the words are in the key under
+   the table (and still read out). Scrolling sideways hid two of the three plans. */
+@media (max-width: 560px) {
+  .compare th, .compare td { padding-right: 6px; }
+  .compare tbody th { width: 42%; overflow-wrap: anywhere; }
+  .compare .state { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+  .invoice li { grid-template-columns: minmax(0, 1fr); row-gap: 2px; }
+}
 
 /* ── Who it's for: seats; door pages ──────────────────────────────────── */
 .seats li { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--gutter); row-gap: 6px; padding-block: var(--s-5); border-top: 1px solid var(--rule); }
@@ -105,6 +269,9 @@
 .facts li:first-child { border-top: 1.5px solid var(--fg); }
 
 /* ── Trust; Company ───────────────────────────────────────────────────── */
+/* Company · how we work: the question in the margin, the answer at full voice beside it, on one baseline. */
+.ownway { align-items: baseline; }
+.ownway__line { margin-bottom: var(--s-4); }
 .mission { font-size: var(--t-h2); font-weight: 300; letter-spacing: -.03em; line-height: 1.12; max-width: 22em; text-wrap: balance; }
 .pillars { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); column-gap: var(--gutter); row-gap: var(--s-6); margin-top: var(--s-8); }
 .pillars li { display: grid; gap: var(--s-3); align-content: start; padding-top: var(--s-5); border-top: 1.5px solid var(--fg); }

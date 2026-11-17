@@ -42,7 +42,6 @@ const fontFaces = weights.map(([name, w]) =>
     <script is:inline>
       // Arm entrances only when script runs; a timer in motion.ts releases anything that has not started.
       document.documentElement.classList.add('js');
-      try { if (localStorage.getItem('trisian-motion') === 'paused') document.documentElement.classList.add('motion-paused'); } catch (e) {}
     </script>
   </head>
   <body>

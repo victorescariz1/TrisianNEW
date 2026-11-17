@@ -6,7 +6,7 @@ import { pathToFileURL } from 'node:url';
 
 const dir = path.resolve('src/content');
 const factFields = ['body', 'lede', 'answer', 'what', 'line', 'ours', 'intro', 'how'];
-const refOk = (r) => /^BP §\d+(\.\d+)?$/.test(r) || /^01 §20(\.\d+|[a-c])?$/.test(r);
+const refOk = (r) => /^BP §\d+(\.\d+)?$/.test(r) || /^01 §20(\.\d+|[a-e])?$/.test(r);
 let blocks = 0, problems = 0;
 
 const visit = (node, trail, inherited) => {

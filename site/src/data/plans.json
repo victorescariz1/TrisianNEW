@@ -63,7 +63,7 @@
     {
       "label": "CIS-hardened images",
       "part": "security",
-      "core": "addon",
+      "core": "in",
       "advanced": "in",
       "enterprise": "in"
     },

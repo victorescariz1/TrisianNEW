@@ -29,7 +29,7 @@ const names = ['The desktop', 'Microsoft 365', 'Security', 'Monitoring', 'Compli
         {part === 'monitoring' && (
           <div class="mini mini--monitoring">
             <ul class="hosts"><li></li><li></li><li></li><li></li><li class="fresh"></li></ul>
-            <svg viewBox="0 0 300 40" preserveAspectRatio="none"><path d="M0 22 H70 l10 -14 l12 26 l10 -18 l8 6 H180 l10 -10 l10 16 l8 -6 H300" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" /></svg>
+            <svg viewBox="0 0 300 40" preserveAspectRatio="none"><path pathLength="1" d="M0 22 H70 l10 -14 l12 26 l10 -18 l8 6 H180 l10 -10 l10 16 l8 -6 H300" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" /></svg>
             <em>24x7 · automated</em>
           </div>
         )}
@@ -106,9 +106,11 @@ const names = ['The desktop', 'Microsoft 365', 'Security', 'Monitoring', 'Compli
   .stack--compact .sheet { width: 74%; }
 
   @media (prefers-reduced-motion: no-preference) {
-    .mini--security .drift { animation: drift-back 6s var(--ease) infinite; }
-    .mini--monitoring svg path { stroke-dasharray: 60 520; animation: pulse 5s linear infinite; }
-    @keyframes drift-back { 0%, 55%, 100% { translate: 0 0; background: var(--tint-2); } 20%, 35% { translate: 14% 0; background: var(--sun); } }
-    @keyframes pulse { from { stroke-dashoffset: 580; } to { stroke-dashoffset: 0; } }
+    /* Each plays once when its sheet comes to the front, then rests: a setting drifts and is put back; the
+       monitoring line is drawn. Neither runs for more than about three seconds. */
+    .sheet.is-front .mini--security .drift { animation: drift-back 2.8s var(--ease) 700ms 1; }
+    .sheet.is-front .mini--monitoring svg path { stroke-dasharray: 1; animation: trace 1.7s var(--ease) 600ms 1 both; }
+    @keyframes drift-back { 0%, 100% { translate: 0 0; background: var(--tint-2); } 30%, 58% { translate: 14% 0; background: var(--sun); } }
+    @keyframes trace { from { stroke-dashoffset: 1; } to { stroke-dashoffset: 0; } }
   }
 </style>

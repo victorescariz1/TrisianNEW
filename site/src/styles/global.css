@@ -84,22 +84,43 @@ strong, b { font-weight: 600; }
 .btn--quiet { background: transparent; color: var(--fg); box-shadow: inset 0 0 0 1.5px currentColor; }
 .btn--quiet:hover, .btn--quiet:focus-visible { background: color-mix(in srgb, currentColor 8%, transparent); }
 .actions { display: flex; flex-wrap: wrap; align-items: center; gap: 20px 32px; }
+/* A text link beside a button is given the same 44px to press, without changing how it looks. */
+.actions .link { position: relative; }
+.actions .link::after { content: ''; position: absolute; inset: -8px -6px; }
+/* Under a finger, a text link that stands alone in its paragraph, and each footer link, is at least 44px tall. */
+@media (pointer: coarse) {
+  p > .link:only-child { position: relative; }
+  p > .link:only-child::after { content: ''; position: absolute; inset: -9px -6px; }
+  .site-footer li + li { margin-top: 0; }
+  .site-footer li a { padding-block: 9px; }
+}
 
 /* ── Header ───────────────────────────────────────────────────────────── */
 .site-header {
   position: fixed; inset: 0 0 auto 0; z-index: 50; height: 84px;
   display: flex; align-items: center;
-  transition: height var(--d-2) var(--ease), background-color var(--d-2) var(--ease), box-shadow var(--d-2) var(--ease);
+  transition: height var(--d-2) var(--ease);
 }
-.site-header.is-condensed { height: 64px; background: color-mix(in srgb, var(--ground) 92%, transparent); box-shadow: 0 1px 0 color-mix(in srgb, var(--fg) 10%, transparent); }
-@supports (backdrop-filter: blur(1px)) { .site-header.is-condensed { background: color-mix(in srgb, var(--ground) 82%, transparent); backdrop-filter: saturate(140%) blur(14px); } }
+/* The frosted bar is a layer of its own, never the header itself. A backdrop-filter on the header makes the
+   header the containing block of anything fixed inside it, and the phone menu is a fixed sheet inside it:
+   once the page had been scrolled the sheet shrank to the height of the bar and its links left the screen. */
+.site-header::before {
+  content: ''; position: absolute; inset: 0; z-index: -1; pointer-events: none; opacity: 0;
+  background: color-mix(in srgb, var(--ground) 92%, transparent); box-shadow: 0 1px 0 color-mix(in srgb, var(--fg) 10%, transparent);
+  transition: opacity var(--d-2) var(--ease), background-color var(--d-2) var(--ease);
+}
+.site-header.is-condensed { height: 64px; }
+.site-header.is-condensed::before { opacity: 1; }
+@supports ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .site-header::before { background: color-mix(in srgb, var(--ground) 82%, transparent); -webkit-backdrop-filter: saturate(140%) blur(14px); backdrop-filter: saturate(140%) blur(14px); }
+}
 .site-header .wrap { display: flex; align-items: center; justify-content: space-between; gap: 24px; }
 .wordmark { display: block; line-height: 0; padding-block: 6px; }
 .wordmark img { height: 34px; width: auto; }
 .footer-logo { height: 40px; width: auto; margin-bottom: var(--s-5); }
 .site-nav { display: flex; align-items: center; gap: clamp(18px, 2.2vw, 36px); }
 .site-nav a:not(.btn) {
-  position: relative; text-decoration: none; font-weight: 500; font-size: .9375rem; color: var(--fg); padding: 8px 0;
+  position: relative; text-decoration: none; font-weight: 500; font-size: .9375rem; color: var(--fg); padding: 10px 0;
 }
 .site-nav a:not(.btn)::after {
   content: ''; position: absolute; left: 0; right: 0; bottom: 2px; height: 1.5px; background: var(--accent);
@@ -110,17 +131,41 @@ strong, b { font-weight: 600; }
 .nav-toggle { display: none; }
 [data-tone='night'] .wordmark img { filter: brightness(0) invert(1); }
 
-@media (max-width: 900px) {
+/* The row of links needs about 1010px. Below 1024 the links live behind the Menu button (the rest of the
+   layout still changes at 900). */
+@media (max-width: 1023px) {
   .site-header { height: 68px; }
   .nav-toggle { display: inline-flex; align-items: center; position: relative; z-index: 2; min-height: 44px; padding: 0 16px; border: 0; border-radius: var(--r-control); background: transparent; box-shadow: inset 0 0 0 1.5px currentColor; font-weight: 500; cursor: pointer; }
-  /* The menu is a sheet of morning light that rises from the foot of the screen. */
-  .site-nav { position: fixed; inset: 0; z-index: 1; flex-direction: column; align-items: flex-start; justify-content: flex-end; gap: 4px; padding: 96px var(--margin) 40px; background: var(--ground-morning); color: var(--ink); transform: translateY(100%); visibility: hidden; transition: transform var(--d-3) var(--ease), visibility 0s linear var(--d-3); }
+  /* The menu is a sheet of morning light that rises from the foot of the screen. Its links sit at the foot.
+     If they do not fit (a very small phone) the sheet scrolls, so the first link can always be reached. */
+  .site-nav { position: fixed; inset: 0; z-index: 1; flex-direction: column; align-items: flex-start; justify-content: flex-start; gap: 4px; padding: 0 var(--margin) max(40px, calc(env(safe-area-inset-bottom) + 24px)); overflow: hidden auto; overscroll-behavior: contain; background: var(--ground-morning); color: var(--ink); transform: translateY(100%); visibility: hidden; transition: transform var(--d-3) var(--ease), visibility 0s linear var(--d-3); }
+  /* A strip of the sheet's own ground stays under the wordmark and the Close button, so links that scroll
+     never run beneath them. */
+  .site-nav::before { content: ''; position: sticky; top: 0; z-index: 1; flex: 0 0 68px; align-self: stretch; margin: 0 calc(-1 * var(--margin)) 28px; background: var(--ground-morning); }
+  .site-nav > * { flex-shrink: 0; }
+  .site-nav > :first-child { margin-top: auto; }
   .site-header.is-open .site-nav { transform: none; visibility: visible; transition: transform var(--d-3) var(--ease), visibility 0s; }
   .site-header.is-open { color: var(--ink); height: 68px; background: var(--ground-morning); box-shadow: none; -webkit-backdrop-filter: none; backdrop-filter: none; }
   .site-header.is-open .wordmark { position: relative; z-index: 2; }
   .site-header.is-open .wordmark img { filter: none; }
-  .site-nav a:not(.btn) { font-size: var(--t-h1); font-weight: 300; letter-spacing: -.035em; line-height: 1.15; padding: 4px 0; color: var(--ink); }
+  /* Six links and the button: the type also follows the screen's height, so they fit a short, wide window. */
+  .site-nav a:not(.btn) { font-size: min(var(--t-h1), 8vh); font-weight: 300; letter-spacing: -.035em; line-height: 1.15; padding: 4px 0; color: var(--ink); }
   .site-nav .btn { margin-top: 28px; min-height: 52px; }
+}
+/* A phone on its side: two columns (four links, then two links and the button), at a smaller size, so the
+   whole menu fits without scrolling. */
+@media (max-width: 1023px) and (max-height: 520px) and (orientation: landscape) {
+  .site-nav { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); grid-template-rows: 68px minmax(0, 1fr) repeat(4, auto); column-gap: var(--gutter); row-gap: 0; align-items: center; justify-items: start; padding-bottom: max(20px, env(safe-area-inset-bottom)); }
+  .site-nav::before { grid-column: 1 / -1; grid-row: 1; justify-self: stretch; align-self: stretch; margin-bottom: 0; }
+  .site-nav > :first-child { margin-top: 0; }
+  .site-nav > a:nth-child(-n+4) { grid-column: 1; }
+  .site-nav > a:nth-child(n+5) { grid-column: 2; }
+  .site-nav > a:nth-child(4n+1) { grid-row: 3; }
+  .site-nav > a:nth-child(4n+2) { grid-row: 4; }
+  .site-nav > a:nth-child(4n+3) { grid-row: 5; }
+  .site-nav > a:nth-child(4n) { grid-row: 6; }
+  .site-nav a:not(.btn) { font-size: min(var(--t-h2), 4.8vw, 12vh); }
+  .site-nav .btn { margin-top: 0; }
 }
 
 /* ── Footer ───────────────────────────────────────────────────────────── */
@@ -128,6 +173,8 @@ strong, b { font-weight: 600; }
 .site-footer .grid { row-gap: var(--s-7); }
 .site-footer .statement { grid-column: 1 / span 5; }
 .site-footer nav { grid-column: span 2; }
+/* Three columns of links in the last six columns: starting the first at column 8 left no room for the third,
+   which dropped to a row of its own. */
 .site-footer nav:first-of-type { grid-column: 7 / span 2; }
 .site-footer h2 { font-size: var(--t-label); font-weight: 500; color: var(--ink-3); margin-bottom: 14px; }
 .site-footer li + li { margin-top: 4px; }
@@ -136,8 +183,14 @@ strong, b { font-weight: 600; }
 .site-footer a:hover { text-decoration: underline; text-underline-offset: 3px; }
 .site-footer .legal { grid-column: 1 / -1; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px 32px; padding-top: var(--s-6); border-top: 1px solid var(--rule); color: var(--ink-3); font-size: var(--t-small); }
 .site-footer .signoff { font-size: var(--t-h3); font-weight: 300; letter-spacing: -.02em; margin-top: var(--s-6); }
+/* Narrower: the statement takes a row, and the three lists stay side by side. Stacked one under another
+   they each used a fifth of the row and left the rest blank. On a phone they sit two to a row. */
 @media (max-width: 900px) {
-  .site-footer .statement, .site-footer nav, .site-footer nav:first-of-type { grid-column: 1 / -1; }
+  .site-footer .statement { grid-column: 1 / -1; }
+  .site-footer nav, .site-footer nav:first-of-type { grid-column: span 4; }
+}
+@media (max-width: 560px) {
+  .site-footer nav, .site-footer nav:first-of-type { grid-column: span 6; }
 }
 
 /* ── Motion: page-load type (CSS only, starts with first paint) ───────── */
@@ -165,7 +218,10 @@ strong, b { font-weight: 600; }
   .js [data-enter='open-left'] > * { clip-path: inset(0 100% 0 0); }
   .js [data-enter='draw'] { --draw: 0; }
   .js [data-enter].is-in { opacity: 1; transform: none; --draw: 1; transition: opacity var(--d-3) var(--ease) var(--enter-delay), transform var(--d-3) var(--ease) var(--enter-delay); }
-  .js [data-enter].is-in > * { clip-path: inset(0 0 0 0); transition: clip-path var(--d-4) var(--ease) var(--enter-delay, 0ms); }
+  /* Only the two crop entrances clip, and once open the crop rests a little outside the child's own box.
+     Cropping every entrance's children to their exact boxes cut the tails of g and y on large, tightly
+     set lines. */
+  .js [data-enter='open'].is-in > *, .js [data-enter='open-left'].is-in > * { clip-path: inset(-.3em -.2em -.4em -.2em); transition: clip-path var(--d-4) var(--ease) var(--enter-delay, 0ms); }
   .js [data-enter='draw'].is-in { transition: --draw 1300ms var(--ease); }
 
   /* The doors open one after another, left to right. */
@@ -175,7 +231,7 @@ strong, b { font-weight: 600; }
 
   /* A statement arrives large and settles as the page moves (where the browser can tie animation to scroll). */
   @supports (animation-timeline: view()) {
-    .t-statement:not(.assemble):not([data-year]) { transform-origin: left center; animation: settle-statement linear both; animation-timeline: view(); animation-range: entry 0% cover 34%; }
+    .t-statement:not(.assemble) { transform-origin: left center; animation: settle-statement linear both; animation-timeline: view(); animation-range: entry 0% cover 34%; }
     @keyframes settle-statement { from { transform: translateY(18%) scale(1.07); opacity: .25; } to { transform: none; opacity: 1; } }
   }
 }
@@ -187,15 +243,7 @@ strong, b { font-weight: 600; }
 .assemble.is-done .ink { animation: none !important; background: none !important; -webkit-text-fill-color: currentColor; color: var(--accent) !important; font-weight: 600 !important; }
 .pw.is-done * { animation: none !important; }
 
-html.motion-paused .ambient, html.motion-paused .ambient *, html.motion-paused .ambient *::before, html.motion-paused .ambient *::after { animation-play-state: paused !important; }
-
 /* Cross-document page transitions where supported */
 @media (prefers-reduced-motion: no-preference) { @view-transition { navigation: auto; } }
 
 /* ── Footer: the motion switch ────────────────────────────────────────── */
-.motion-toggle { display: inline-flex; align-items: center; gap: 10px; min-height: 44px; padding: 0; border: 0; background: none; color: inherit; font: inherit; cursor: pointer; }
-.motion-toggle__track { position: relative; width: 38px; height: 22px; border-radius: 11px; background: color-mix(in srgb, var(--ink) 26%, transparent); transition: background-color var(--d-2) var(--ease); }
-.motion-toggle__track span { position: absolute; top: 3px; left: 3px; width: 16px; height: 16px; border-radius: 50%; background: #fff; transition: transform var(--d-2) var(--ease); }
-.motion-toggle[aria-checked='true'] .motion-toggle__track { background: var(--cobalt); }
-.motion-toggle[aria-checked='true'] .motion-toggle__track span { transform: translateX(16px); }
-.motion-toggle:focus-visible { outline: 2px solid var(--bright); outline-offset: 4px; border-radius: 6px; }

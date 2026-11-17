@@ -3,6 +3,7 @@ import Base from '../layouts/Base.astro';
 import PageHero from '../components/PageHero.astro';
 import Closing from '../components/Closing.astro';
 import Stack from '../components/Stack.astro';
+import ProductWindow from '../components/ProductWindow.astro';
 import '../styles/home.css';
 import '../styles/pages.css';
 import { url } from '../lib/url';
@@ -39,6 +40,7 @@ import scopeData from '../data/scope.json';
         ))}
       </ol>
       <p class="t-lede measure" style="margin-top: var(--s-8)">{c.built.reach}</p>
+      <p style="margin-top: var(--s-5)"><a class="link" href={url('projects')}>The kinds of project <span class="arrow" aria-hidden="true">→</span></a></p>
     </div>
   </section>
 
@@ -52,15 +54,29 @@ import scopeData from '../data/scope.json';
             <div class="qa__answer">
               <p class="t-h2"><span class="ink">{item.answer}</span></p>
               <p class="t-lede measure">{item.body}</p>
-              {i === 1 && (
-                <div class="where" role="img" aria-label="Illustration: your Azure tenant, joined to your datacenter by a private connection.">
-                  <div class="where__box where__box--azure" aria-hidden="true"><p>Your Azure tenant</p><p class="t-small">Safe Workspace, on Azure Virtual Desktop</p></div>
-                  <p class="where__link" aria-hidden="true">a private connection</p>
-                  <div class="where__box where__box--dc" aria-hidden="true"><p>Your datacenter</p><p class="t-small">What you already run</p></div>
-                </div>
-              )}
               {item.question.startsWith('Whose tenant') && <p><a class="link" href={url('trust')}>More on the Trust page <span class="arrow" aria-hidden="true">→</span></a></p>}
             </div>
+            {i === 1 && (
+                <div class="where" role="img" aria-label="Illustration: the Safe Workspace desktop runs in your Azure tenant, joined by a private connection to what you already run in your datacenter.">
+                  <div class="where__scene" aria-hidden="true">
+                    <div class="where__sky">
+                      <p class="where__name">Your Azure tenant</p>
+                      <p class="t-small">Safe Workspace, on Azure Virtual Desktop</p>
+                    </div>
+                    <div class="where__desk"><ProductWindow compact /></div>
+                    <p class="where__link"><i class="where__wire"></i><span>a private connection</span></p>
+                    <div class="where__racks">
+                      {[0, 1, 2, 3].map((r) => (
+                        <div class="rack">{[0, 1, 2, 3, 4, 5].map((u) => <i style={`--u:${u + r};--n:${u + Math.abs(r - 2)}`}><b></b></i>)}</div>
+                      ))}
+                    </div>
+                    <div class="where__ground" data-enter="ground">
+                      <p class="where__name">Your datacenter</p>
+                      <p class="t-small">What you already run</p>
+                    </div>
+                  </div>
+                </div>
+            )}
           </li>
         ))}
       </ul>
@@ -84,13 +100,11 @@ import scopeData from '../data/scope.json';
       </table>
       <div class="grid scope__body">
         <p class="t-h2 scope__principle"><span class="ink">{scope.principle}</span></p>
-        <div>
-          <p class="t-lede">{scope.body}</p>
-          <ul class="commitments">
-            {c.commitments.map((item) => <li><strong>{item.lead}</strong> {item.body}</li>)}
-          </ul>
-          <p>{c.outside}</p>
-        </div>
+        <p class="t-lede">{scope.body}</p>
+        <ul class="commitments">
+          {c.commitments.map((item) => <li><strong>{item.lead}</strong> {item.body}</li>)}
+        </ul>
+        <p class="scope__outside">{c.outside}</p>
       </div>
       <div class="explorer" data-explorer>
         <p class="t-h3">{scope.explorerPrompt}</p>
@@ -103,7 +117,7 @@ import scopeData from '../data/scope.json';
           <div class="zone zone--inside"><p class="t-label">Inside the Managed Scope</p><p class="zone__terms">an owner · a path to resolution</p><ul data-placed="inside"></ul></div>
           <div class="zone zone--outside"><p class="t-label">Outside, defined in writing</p><ul data-placed="outside"></ul></div>
         </div>
-        <p class="explorer__answer" aria-live="polite" data-answer><span class="t-small">Choose a situation to see where it lands.</span></p>
+        <p class="explorer__answer" aria-live="polite"><span class="t-small">Choose a situation to see where it lands.</span></p>
         <noscript>
           <dl class="explorer__list">
             {scopeData.situations.map((s) => <><dt>{s.label} <em>{s.verdict}</em></dt><dd>{s.answer}</dd></>)}

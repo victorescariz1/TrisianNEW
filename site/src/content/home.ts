@@ -134,9 +134,10 @@ export const since = {
   link: 'Our story',
   heading: 'of running IT.',
   ink: 'in the cloud',
+  // Home shows the heading and a link. The introduction and the eras are the Company page's.
+  more: 'The story',
   intro: 'Safe Workspace wasn’t designed in a quarter. Each part of it is something we learned by running desktops for clients, one era at a time.',
-  closing: 'Today we have no office and no datacenter of our own. Trisian runs on the same managed cloud model it sells.',
-  truth: ['BP §1.3', 'BP §3.1'],
+  truth: ['BP §1.3'],
   eras: [
     { year: '1998', name: 'ILS Inc.', what: 'We start in Florida: technical support, and PCs built to order.', taught: 'People don’t call about technology. They call because work has stopped.', part: 'Support', truth: ['BP §1.3'] },
     { year: '2010', name: 'All IT Host', what: 'We take the desktop off the desk: Citrix desktops, hosted on our own servers in a datacenter.', taught: 'Work is safer in one well-run place than on a hundred devices.', part: 'The desktop', truth: ['BP §1.3'] },

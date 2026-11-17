@@ -7,7 +7,7 @@ import PlanLadder from '../components/PlanLadder.astro';
 import '../styles/home.css';
 import '../styles/pages.css';
 import { url } from '../lib/url';
-import { plansPage as c } from '../content/pages';
+import { plansPage as c, projectsPage } from '../content/pages';
 import plans from '../data/plans.json';
 const stateMark: Record<string, string> = { in: '●', addon: '○', project: '◇', no: '·' };
 const states = plans.states as Record<string, string>;
@@ -23,7 +23,7 @@ const states = plans.states as Record<string, string>;
       <div class="compare">
         <table>
           <caption class="sr-only">What each plan includes</caption>
-          <thead><tr><th scope="col">What changes with the plan</th>{plans.plans.map((p) => <th scope="col">{p.name}</th>)}</tr></thead>
+          <thead><tr><th scope="col">Line by line</th>{plans.plans.map((p) => <th scope="col">{p.name}</th>)}</tr></thead>
           <tbody>
             <tr><th scope="row">Microsoft 365 license</th>{plans.plans.map((p) => <td>{p.license.replace('Microsoft 365 ', '')}</td>)}</tr>
             <tr><th scope="row">Users</th>{plans.plans.map((p) => <td>{p.users.replace(' users', '')}</td>)}</tr>
@@ -34,7 +34,7 @@ const states = plans.states as Record<string, string>;
                 <th scope="row">{row.label}</th>
                 {plans.plans.map((p) => {
                   const state = (row as Record<string, string>)[p.id];
-                  return <td data-state={state}><span class="mark" aria-hidden="true">{stateMark[state]}</span> {states[state]}</td>;
+                  return <td data-state={state}><span class="mark" aria-hidden="true">{stateMark[state]}</span> <span class="state">{states[state]}</span></td>;
                 })}
               </tr>
             ))}
@@ -47,7 +47,7 @@ const states = plans.states as Record<string, string>;
   </section>
 
   <section class="band" data-ground="morning" aria-labelledby="invoice-h">
-    <div class="wrap band__grid">
+    <div class="wrap band__grid band__grid--aside">
       <div class="band__head">
         <p class="t-question">{c.invoice.question}</p>
         <h2 class="t-h1" id="invoice-h"><span class="ink">{c.invoice.answer}</span></h2>
@@ -55,17 +55,12 @@ const states = plans.states as Record<string, string>;
       <div class="band__body" data-enter="open">
         <Invoice />
       </div>
-    </div>
-  </section>
-
-  <section class="band" data-ground="morning" aria-labelledby="around-h">
-    <div class="wrap band__grid">
-      <div class="band__head"><h2 class="t-h2" id="around-h">{c.around.heading}</h2></div>
-      <div class="band__body">
-        <ul class="invoice">
+      <div class="band__aside">
+        <h3 class="t-h3" id="around-h">{c.around.heading}</h3>
+        <ul class="invoice invoice--stack">
           {c.around.items.map((item) => <li><strong>{item.name}</strong><span>{item.body}</span></li>)}
         </ul>
-        <p><a class="link" href={url('safe-workspace#built')}>How it gets built <span class="arrow" aria-hidden="true">→</span></a></p>
+        <p><a class="link" href={url('projects')}>The kinds of project <span class="arrow" aria-hidden="true">→</span></a></p>
       </div>
     </div>
   </section>
@@ -77,10 +72,9 @@ const states = plans.states as Record<string, string>;
         <p class="t-lede">{c.services.lede}</p>
       </div>
       <div class="band__body">
-        <ul class="invoice">
-          {c.services.areas.map((area) => <li><strong>{area.name}</strong><span>{area.body}</span></li>)}
-        </ul>
+        <p class="t-h3">{projectsPage.kinds.areas.map((area) => area.name).join(' · ')}</p>
         <p class="t-small">{c.services.note}</p>
+        <p><a class="link" href={url('projects')}>See the projects in each area <span class="arrow" aria-hidden="true">→</span></a></p>
       </div>
     </div>
   </section>

@@ -1,7 +1,6 @@
 // Motion and interaction for the site. Contract (brain/10-motion-scenes.md):
 // the page is complete without this file; state changes land before animation; nothing can stay hidden.
 
-const root = document.documentElement;
 const $ = <T extends Element>(sel: string, el: ParentNode = document) => el.querySelector<T>(sel);
 const $$ = <T extends Element>(sel: string, el: ParentNode = document) => Array.from(el.querySelectorAll<T>(sel));
 
@@ -15,19 +14,26 @@ window.addEventListener('scroll', onScroll, { passive: true });
 // The page-load type and the product window open with CSS animations. If frames are not being drawn
 // (a background tab, a renderer that skips animation), these timers land them on their final state.
 window.setTimeout(() => $$('.assemble').forEach((el) => el.classList.add('is-done')), 2600);
-window.setTimeout(() => $$('.pw').forEach((el) => el.classList.add('is-done')), 7000);
+window.setTimeout(() => $$('.pw').forEach((el) => el.classList.add('is-done')), 5600);
 
 /* ── The menu sheet (narrow screens) ───────────────────────────────────── */
 const navToggle = $<HTMLButtonElement>('[data-nav-toggle]');
+const behindMenu = $$<HTMLElement>('main, body > footer');
 const setMenu = (open: boolean) => {
   header?.classList.toggle('is-open', open);
   navToggle?.setAttribute('aria-expanded', String(open));
   if (navToggle) navToggle.textContent = open ? 'Close' : 'Menu';
   document.body.style.overflow = open ? 'hidden' : '';
+  // While the sheet is up, the page behind it takes no focus and no taps.
+  behindMenu.forEach((el) => { el.inert = open; });
 };
 navToggle?.addEventListener('click', () => setMenu(!header?.classList.contains('is-open')));
 document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && header?.classList.contains('is-open')) { setMenu(false); navToggle?.focus(); } });
 $$<HTMLAnchorElement>('.site-nav a').forEach((a) => a.addEventListener('click', () => setMenu(false)));
+// The sheet belongs to the narrow layout. Turning a tablet on its side, or coming back to a page the browser
+// kept in memory, must never leave it open with the page locked behind it.
+window.matchMedia('(min-width: 1024px)').addEventListener('change', (e) => { if (e.matches) setMenu(false); });
+window.addEventListener('pageshow', (e) => { if (e.persisted) setMenu(false); });
 
 /* ── Entrances: armed by html.js, released when seen, and by a failsafe ── */
 const enters = $$<HTMLElement>('[data-enter]');
@@ -79,7 +85,8 @@ const depth = $$<HTMLElement>('[data-depth]');
 const activate = (n: number) => {
   if (!stack) return;
   stack.style.setProperty('--active', String(n));
-  $$<HTMLElement>('.sheet', stack).forEach((sheet, i) => sheet.classList.toggle('is-passed', i < n));
+  // `is-front` marks the sheet being read; its small figure plays once each time it comes to the front.
+  $$<HTMLElement>('.sheet', stack).forEach((sheet, i) => { sheet.classList.toggle('is-passed', i < n); sheet.classList.toggle('is-front', i === n); });
   steps.forEach((s, i) => s.classList.toggle('is-active', i === n));
   depth.forEach((d, i) => d.classList.toggle('is-on', i === n));
 };
@@ -118,6 +125,8 @@ $$<HTMLElement>('[data-plan-root]').forEach((planRoot) => {
 
 /* ── Whose problem is it? ──────────────────────────────────────────────── */
 $$<HTMLElement>('[data-explorer]').forEach((ex) => {
+  // The answer line, by its class. Every chip also carries a `data-answer` attribute (its own answer),
+  // so looking for that attribute found the first chip and wrote the answers into its label.
   const answer = $<HTMLElement>('.explorer__answer', ex);
   $$<HTMLButtonElement>('.chip', ex).forEach((chip) => {
     chip.addEventListener('click', () => {
@@ -135,41 +144,6 @@ $$<HTMLElement>('[data-explorer]').forEach((ex) => {
     });
   });
 });
-
-/* ── Since 1998: the year follows the era in view ──────────────────────── */
-const eras = $<HTMLElement>('[data-eras]');
-const year = $<HTMLElement>('[data-year]');
-if (eras && year) {
-  // The year follows how far the row has been scrolled, so the last era is reached on any screen width.
-  const items = $$<HTMLElement>('[data-era-year]', eras);
-  const follow = () => {
-    const room = eras.scrollWidth - eras.clientWidth;
-    const at = room > 0 ? Math.round((eras.scrollLeft / room) * (items.length - 1)) : 0;
-    const next = (items[Math.min(items.length - 1, Math.max(0, at))]?.dataset.eraYear || '').slice(0, 4);
-    const span = year.firstElementChild as HTMLElement | null;
-    if (!span || !next || span.textContent === next) return;
-    span.textContent = next;
-    year.classList.remove('is-rolling'); void year.offsetWidth; year.classList.add('is-rolling');
-  };
-  eras.addEventListener('scroll', follow, { passive: true });
-}
-
-/* ── Pause motion: one control, remembered ─────────────────────────────── */
-const toggle = $<HTMLButtonElement>('[data-motion-toggle]');
-const syncToggle = () => {
-  const paused = root.classList.contains('motion-paused');
-  if (toggle) {
-    const label = toggle.querySelector('[data-motion-label]');
-    if (label) label.textContent = paused ? 'Motion off' : 'Motion on';
-    toggle.setAttribute('aria-checked', String(!paused));
-  }
-};
-toggle?.addEventListener('click', () => {
-  const paused = root.classList.toggle('motion-paused');
-  try { localStorage.setItem('trisian-motion', paused ? 'paused' : 'playing'); } catch { /* storage unavailable */ }
-  syncToggle();
-});
-syncToggle();
 
 /* ── Measurement: named actions only, and only if measurement is switched on ── */
 const track = (name: string, props?: Record<string, string>) => {

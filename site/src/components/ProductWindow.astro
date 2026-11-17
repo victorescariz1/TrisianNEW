@@ -61,23 +61,39 @@ const { signin = [], class: cls = '', compact = false } = Astro.props;
   .pw__taskbar i:nth-of-type(3) { background: #7C8FE8; }
   .pw__taskbar i:nth-of-type(4) { background: #E6B872; }
   .pw__taskbar .pw__start { background: conic-gradient(from 0deg, var(--cobalt) 0 25%, #4D7CFF 0 50%, #7C8FE8 0 75%, #A9B6F2 0); border-radius: 3px; }
-  .pw__taskbar span { margin-left: 8px; color: var(--ink-2); font-weight: 500; font-variant-numeric: tabular-nums; }
+  .pw__taskbar span { margin-left: 8px; color: var(--ink-2); font-weight: 500; font-variant-numeric: tabular-nums; white-space: nowrap; }
   /* On a small window there is room for one thing: the document. */
   @container (max-width: 400px) {
     .pw__mail { display: none; }
     .pw__doc { left: 6%; right: 6%; width: auto; }
+  }
+  /* A small compact window: the rows tighten, so the document ends above the taskbar. */
+  @container (max-width: 302px) {
+    .pw--compact .pw__doc { top: 8%; }
+    .pw--compact .pw__bar { padding-block: 4px; }
+    .pw--compact .pw__cells span { padding-block: 3px; }
+  }
+  /* Smaller still, it is a thumbnail: type and spacing scale with the window, so nothing collides. */
+  @container (max-width: 246px) {
+    .pw--compact .pw__screen { font-size: 3.1cqi; }
+    .pw--compact .pw__bar { padding: .5em 1.1em; gap: .6em; }
+    .pw--compact .pw__bar i { width: .85em; height: .85em; }
+    .pw--compact .pw__cells span { padding: .375em 1.1em; }
+    .pw--compact .pw__taskbar { gap: .75em; padding: .6em 1.2em; }
+    .pw--compact .pw__taskbar span { margin-left: 1em; }
   }
   .pw__signin { position: absolute; inset: 0; margin: 0; padding: 0; list-style: none; pointer-events: none; }
   .pw__signin li { position: absolute; left: 50%; bottom: 17%; translate: -50% 0; width: max-content; max-width: 86%; padding: 6px 12px; border-radius: 999px; background: var(--ink); color: #fff; font-weight: 500; text-align: center; opacity: 0; }
   .pw__signin li:last-child { opacity: 1; }
 
   @media (prefers-reduced-motion: no-preference) {
-    /* The opening: sign in, the desktop settles, the profile arrives. Plays once, from first paint. */
-    .pw__signin li { animation: say 1500ms var(--ease) both; animation-delay: calc(var(--n) * 1300ms + 400ms); }
-    .pw__signin li:last-child { animation-name: say-stay; }
-    .pw__doc { animation: settle var(--d-3) var(--ease) 1500ms both; }
-    .pw__mail { animation: settle var(--d-3) var(--ease) 2900ms both; }
-    .pw__taskbar { animation: settle-bar var(--d-3) var(--ease) 1300ms both; }
+    /* The opening: sign in, the desktop settles, the profile arrives. Plays once, from first paint, and is
+       over in under five seconds (four lines: the last one lands at about 4.6 s and stays). */
+    .pw__signin li { animation: say 1300ms var(--ease) both; animation-delay: calc(var(--n) * 1080ms + 300ms); }
+    .pw__signin li:last-child { animation-name: say-stay; animation-duration: 1050ms; }
+    .pw__doc { animation: settle var(--d-3) var(--ease) 1250ms both; }
+    .pw__mail { animation: settle var(--d-3) var(--ease) 2400ms both; }
+    .pw__taskbar { animation: settle-bar var(--d-3) var(--ease) 1080ms both; }
     @keyframes say { 0% { opacity: 0; translate: -50% 8px; } 15%, 80% { opacity: 1; translate: -50% 0; } 100% { opacity: 0; translate: -50% -6px; } }
     @keyframes say-stay { 0% { opacity: 0; translate: -50% 8px; } 100% { opacity: 1; translate: -50% 0; } }
     @keyframes settle { from { opacity: 0; transform: translateY(10px) scale(.98); } to { opacity: 1; transform: none; } }

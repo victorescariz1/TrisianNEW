@@ -1,0 +1,82 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import Closing from '../components/Closing.astro';
+import ProjectSheet from '../components/ProjectSheet.astro';
+import '../styles/home.css';
+import '../styles/pages.css';
+import { url } from '../lib/url';
+import { projectsPage as c } from '../content/pages';
+---
+<Base title={c.title} description={c.description} current="projects">
+  <PageHero eyebrow="Projects" lines={c.lines} ink={c.ink} lede={c.lede}>
+    <ProjectSheet />
+  </PageHero>
+
+  <section class="band" id="kinds" data-ground="noon" aria-labelledby="kinds-h">
+    <div class="wrap">
+      <div class="kinds__head">
+        <h2 class="t-h1" id="kinds-h">{c.kinds.lead} <span class="ink" data-ink>{c.kinds.ink}</span>.</h2>
+        <p class="t-lede">{c.kinds.intro}</p>
+      </div>
+      <ul class="kinds" data-enter="draw">
+        {c.kinds.areas.map((area) => (
+          <li>
+            <div class="kinds__area">
+              <h3 class="t-h2">{area.name}</h3>
+              <p class="t-lede">{area.line}</p>
+              {area.note && <p class="t-small kinds__note">{area.note}</p>}
+            </div>
+            <ul class="kinds__projects">
+              {area.projects.map((p) => (
+                <li>
+                  <strong>{'door' in p && p.door ? <a class="link" href={url(`who-its-for/${p.door}`)}>{p.name} <span class="arrow" aria-hidden="true">→</span></a> : p.name}</strong>
+                  <span>{p.what}</span>
+                </li>
+              ))}
+            </ul>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <section class="band" id="after" data-ground="morning" aria-labelledby="after-h">
+    <div class="wrap band__grid handover">
+      <div class="handover__text">
+        <h2 class="t-h1" id="after-h">{c.ends.lead} <span class="ink" data-ink>{c.ends.ink}</span>.</h2>
+        <p class="t-lede measure">{c.ends.body}</p>
+        <p><a class="link" href={url('safe-workspace#scope')}>See the Managed Scope <span class="arrow" aria-hidden="true">→</span></a></p>
+      </div>
+      <div class="handover__figure" data-enter="land" role="img" aria-label="Illustration: what projects put in place sits inside the Managed Scope, where each thing has an owner, a service level and a resolution path.">
+        <div class="zone zone--inside" aria-hidden="true">
+          <p class="t-label">{c.ends.zoneLabel}</p>
+          <p class="zone__terms">{c.ends.zoneTerms}</p>
+          <ul>
+            {c.ends.built.map((b, k) => <li style={`--k:${k}`}>{b}</li>)}
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="band" data-ground="morning" aria-labelledby="pq-h">
+    <div class="wrap">
+      <h2 class="sr-only" id="pq-h">Questions about projects</h2>
+      <ul class="qa">
+        {c.questions.map((q, i) => (
+          <li>
+            <p class="t-question">{q.question}</p>
+            <div class="qa__answer">
+              <p class="t-h2"><span class="ink">{q.answer}</span></p>
+              <p class="t-lede measure">{q.body}</p>
+              {i === 2 && <p><a class="link" href={url('plans')}>The add-ons, on Plans <span class="arrow" aria-hidden="true">→</span></a></p>}
+            </div>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <Closing />
+</Base>

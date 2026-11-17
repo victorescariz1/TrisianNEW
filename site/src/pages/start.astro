@@ -95,9 +95,9 @@ const mail = 'mailto:contact@trisian.com?subject=A%20first%20conversation%20abou
     <div class="wrap band__grid">
       <div class="band__head"><h2 class="t-h2" id="next-h">What comes next</h2></div>
       <div class="band__body">
-        <ul class="invoice">
+        <ol class="invoice">
           {c.next.map((step) => <li><strong>{step.name}</strong><span>{step.body}</span></li>)}
-        </ul>
+        </ol>
         <p class="t-small">{c.minimum}</p>
       </div>
     </div>
